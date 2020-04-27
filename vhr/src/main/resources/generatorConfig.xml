@@ -27,11 +27,11 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/vhr?useUnicode=true&amp;characterEncoding=utf-8"
                         userId="root"
-                        password="1111" />
+                        password="P@Ss5201314" />
 
         <!-- 生成model模型，对应的包路径，以及文件存放路径(targetProject)，targetProject可以指定具体的路径,如./src/main/java，
         也可以使用“MAVEN”来自动生成，这样生成的代码会在target/generatord-source目录下 -->
-        <javaModelGenerator targetPackage="com.chouxiaozi.micro.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.chouxiaozi.vhr.model" targetProject="src/main/java">
             <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.github.jackieonwaymodel.[schemaName] -->
             <property name="enableSubPackages" value="false" />
             <!-- 从数据库返回的值被清理前后的空格 -->
@@ -44,12 +44,12 @@
         <sqlMapGenerator targetPackage="/mapper"  targetProject="src\main\resources" />
 
         <!-- 配置自动生成的Mappper.java接口的保存路径与其它参数 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.chouxiaozi.micro.mapper" targetProject="src\main\java" />
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.chouxiaozi.vhr.mapper" targetProject="src\main\java" />
 
         <!-- 生成表对应的操作与实体对象 -->
         <!-- 基本表 -->
         <table schema="" tableName="menu" domainObjectName="Menu" >
-            <!--<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id" identity="true" />-->
+            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id" identity="true" />
         </table>
     </context>
 </generatorConfiguration>
