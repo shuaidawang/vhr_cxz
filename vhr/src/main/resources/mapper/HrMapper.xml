@@ -287,4 +287,8 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--自定义-->
+  <select id="loadUserByUsername" resultMap="BaseResultMap">
+    select * from hr where username=#{username}
+  </select>
 </mapper>
