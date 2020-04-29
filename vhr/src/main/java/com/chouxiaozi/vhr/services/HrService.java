@@ -22,4 +22,8 @@ public class HrService implements UserDetailsService {
         }
         return hr;
     }
+
+    public Hr selectUserByUsername(String username){
+        return hrMapper.loadUserByUsername(username);
+    }
 }
