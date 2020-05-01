@@ -13,7 +13,9 @@
 </template>
 
 <script>
-  export default {
+    import { postKeyValueRequest} from "../utils/api";
+
+    export default {
     name: "Login",
       data(){
         return{
@@ -36,10 +38,15 @@
         submitLogin(){
             this.$refs['loginForm'].validate((valid) => {
                 if (valid) {
-                    this.$message({
-                        message: '登录成功',
-                        type: 'success'
-                    });
+
+                    postKeyValueRequest('/doLogin',this.loginForm).then(resp=>{
+                        if(resp){
+                            this.$message({
+                                message: JSON.stringify(resp),
+                                type: 'success'
+                            });
+                        }
+                    })
                 } else {
                     this.$message.error('用户名或密码错误');
                     return false;
