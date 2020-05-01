@@ -1,6 +1,7 @@
 package com.chouxiaozi.vhr.controller;
 
 import com.chouxiaozi.vhr.services.HrService;
+import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,11 @@ public class HelloController {
     @Autowired
     HrService hrService;
 
+    @GetMapping("/login")
+    public RespBean login(){
+        return RespBean.ok("请登录");
+    }
+
     @GetMapping("/hello")
     public String Hello(String name){
         UserDetails user = hrService.selectUserByUsername(name);
@@ -19,5 +25,10 @@ public class HelloController {
             return  "用户不存在";
         }
         return user.getPassword();
+    }
+
+    @GetMapping("/hello2")
+    public String hello2(){
+        return "hello2";
     }
 }
