@@ -1,11 +1,6 @@
 package com.chouxiaozi.vhr.model;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-
-public class Hr implements UserDetails {
+public class Hr {
 
     private Integer id;
 
@@ -40,7 +35,7 @@ public class Hr implements UserDetails {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getPhone() {
@@ -48,7 +43,7 @@ public class Hr implements UserDetails {
     }
 
     public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+        this.phone = phone;
     }
 
     public String getTelephone() {
@@ -56,7 +51,7 @@ public class Hr implements UserDetails {
     }
 
     public void setTelephone(String telephone) {
-        this.telephone = telephone == null ? null : telephone.trim();
+        this.telephone = telephone;
     }
 
     public String getAddress() {
@@ -64,7 +59,11 @@ public class Hr implements UserDetails {
     }
 
     public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+        this.address = address;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
     }
 
     public void setEnabled(Boolean enabled) {
@@ -75,33 +74,8 @@ public class Hr implements UserDetails {
         return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
     public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        this.username = username;
     }
 
     public String getPassword() {
@@ -109,7 +83,7 @@ public class Hr implements UserDetails {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
     public String getUserface() {
@@ -117,7 +91,7 @@ public class Hr implements UserDetails {
     }
 
     public void setUserface(String userface) {
-        this.userface = userface == null ? null : userface.trim();
+        this.userface = userface;
     }
 
     public String getRemark() {
@@ -125,6 +99,6 @@ public class Hr implements UserDetails {
     }
 
     public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+        this.remark = remark;
     }
 }
