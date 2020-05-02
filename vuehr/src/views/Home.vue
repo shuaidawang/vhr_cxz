@@ -15,8 +15,20 @@
                 </el-dropdown>
             </el-header>
             <el-container>
-                <el-aside width="200px">Aside</el-aside>
-                <el-main>Main</el-main>
+                <el-aside width="200px">
+                    <el-menu router>
+                        <el-submenu index="1" v-for="(item,index) in this.$router.options.routes" v-if="!item.hidden" :key="index">
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>{{item.name}}</span>
+                            </template>
+                            <el-menu-item :index="child.path" v-for="(child,indexj) in item.children" :key="indexj">{{child.name}}</el-menu-item>
+                        </el-submenu>
+                    </el-menu>
+                </el-aside>
+                <el-main>
+                    <router-view/>
+                </el-main>
             </el-container>
         </el-container>
     </div>
