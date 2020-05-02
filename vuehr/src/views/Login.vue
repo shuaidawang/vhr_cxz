@@ -38,13 +38,10 @@
         submitLogin(){
             this.$refs['loginForm'].validate((valid) => {
                 if (valid) {
-
                     postKeyValueRequest('/doLogin',this.loginForm).then(resp=>{
                         if(resp){
-                            this.$message({
-                                message: JSON.stringify(resp),
-                                type: 'success'
-                            });
+                            window.sessionStorage.setItem("user",JSON.stringify(resp.obj));
+                            this.$router.replace("/home");
                         }
                     })
                 } else {
