@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloController {
+public class LoginController {
 
     @Autowired
     HrService hrService;
@@ -16,19 +16,5 @@ public class HelloController {
     @GetMapping("/login")
     public RespBean login(){
         return RespBean.ok("请登录");
-    }
-
-    @GetMapping("/hello")
-    public String Hello(String name){
-        UserDetails user = hrService.selectUserByUsername(name);
-        if(null == user){
-            return  "用户不存在";
-        }
-        return user.getPassword();
-    }
-
-    @GetMapping("/hello2")
-    public String hello2(){
-        return "hello2";
     }
 }
