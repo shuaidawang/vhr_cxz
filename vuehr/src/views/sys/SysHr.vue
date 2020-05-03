@@ -1,10 +1,10 @@
 <template>
-    <div>Test1</div>
+    <div>操作员管理</div>
 </template>
 
 <script>
     export default {
-        name: "Test1"
+        name: "SysCfg"
     }
 </script>
 

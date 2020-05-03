@@ -7,7 +7,9 @@ export const initMenu = (router, store) => {
     }
     getRequest("/system/getMenu").then(data => {
         if (data) {
+            console.log("data==",data);
             let fmtRoutes = formatRoutes(data);
+            console.log("fmtRoutes",fmtRoutes)
             router.addRoutes(fmtRoutes);
             store.commit("initRoutes", fmtRoutes);
         }
@@ -35,9 +37,23 @@ export const formatRoutes = (routes) => {
             meta: meta,
             children: children,
             component(resolve) {
-                require(['../views/' + component + '.vue'], resolve);
+                let pg = '';
+                if(component.startsWith("Home")){
+                    require(['../views/'+ component + '.vue'], resolve);
+                }else if(component.startsWith("Emp")){
+                    require(['../views/emp/'+ component + '.vue'], resolve);
+                }else if(component.startsWith("Per")){
+                    require(['../views/per/'+ component + '.vue'], resolve);
+                }else if(component.startsWith("Sal")){
+                    require(['../views/sal/'+ component + '.vue'], resolve);
+                }else if(component.startsWith("Sta")){
+                    require(['../views/sta/'+ component + '.vue'], resolve);
+                }else if(component.startsWith("Sys")){
+                    require(['../views/sys/'+ component + '.vue'], resolve);
+                }
             }
         }
         fmtRoutes.push(fmRouter);
     })
+    return fmtRoutes;
 }
