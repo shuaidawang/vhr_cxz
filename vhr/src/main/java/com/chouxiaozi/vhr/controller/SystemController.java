@@ -14,8 +14,8 @@ public class SystemController {
     @Autowired
     MenuService menuService;
 
-    @RequestMapping("/getMenuByHrId")
-    public List<Menu> getMenuByHrId(){
+    @RequestMapping("/getMenu")
+    public List<Menu> getMenu(){
         return menuService.getMenuByHrId();
     }
 }
