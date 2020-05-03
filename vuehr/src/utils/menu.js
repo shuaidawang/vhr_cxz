@@ -7,9 +7,7 @@ export const initMenu = (router, store) => {
     }
     getRequest("/system/getMenu").then(data => {
         if (data) {
-            console.log("data==",data);
             let fmtRoutes = formatRoutes(data);
-            console.log("fmtRoutes",fmtRoutes)
             router.addRoutes(fmtRoutes);
             store.commit("initRoutes", fmtRoutes);
         }
