@@ -327,4 +327,19 @@
         hrr.hrid = #{hrId}
         AND m2.enabled = 1
   </select>
+  <resultMap id="menuRoles" type="com.chouxiaozi.vhr.model.Menu" extends="BaseResultMap">
+    <collection property="roles" ofType="com.chouxiaozi.vhr.model.Role">
+      <id column="rId" property="id" jdbcType="INTEGER" />
+      <result column="rName" property="name" jdbcType="VARCHAR" />
+      <result column="rNameZh" property="nameZh" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <select id="getMenuRole" resultMap="menuRoles">
+        SELECT
+        menu.*,role.id as rId,role.name as rName, role.nameZh as rNameZh
+    FROM
+        menu
+        LEFT JOIN menu_role mr ON mr.mid = menu.id
+        LEFT JOIN role ON role.id = mr.rid
+  </select>
 </mapper>

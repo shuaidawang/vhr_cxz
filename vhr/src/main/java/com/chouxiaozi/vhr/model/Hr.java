@@ -1,9 +1,12 @@
 package com.chouxiaozi.vhr.model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class Hr implements UserDetails {
 
@@ -26,6 +29,8 @@ public class Hr implements UserDetails {
     private String userface;
 
     private String remark;
+
+    private List<Role> roles;
 
     public Integer getId() {
         return id;
@@ -101,7 +106,13 @@ public class Hr implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<Role> roles = getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>(roles.size());
+        for (Role role : roles) {
+            SimpleGrantedAuthority e = new SimpleGrantedAuthority(role.getName());
+            authorities.add(e);
+        }
+        return authorities;
     }
 
     public String getPassword() {
@@ -126,5 +137,13 @@ public class Hr implements UserDetails {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

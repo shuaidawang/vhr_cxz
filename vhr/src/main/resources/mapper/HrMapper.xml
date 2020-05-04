@@ -291,4 +291,12 @@
   <select id="loadUserByUsername" resultMap="BaseResultMap">
     select * from hr where username=#{username}
   </select>
+  <select id="getRoles" resultType="com.chouxiaozi.vhr.model.Role">
+    SELECT
+        role.*
+    FROM hr_role hrr,role
+    WHERE
+    hrr.rid = role.id
+    and hrr.hrid = #{hrId}
+  </select>
 </mapper>

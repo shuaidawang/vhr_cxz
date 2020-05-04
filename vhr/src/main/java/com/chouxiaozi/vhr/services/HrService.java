@@ -2,11 +2,14 @@ package com.chouxiaozi.vhr.services;
 
 import com.chouxiaozi.vhr.mapper.HrMapper;
 import com.chouxiaozi.vhr.model.Hr;
+import com.chouxiaozi.vhr.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class HrService implements UserDetailsService {
@@ -20,6 +23,8 @@ public class HrService implements UserDetailsService {
         if(null == hr){
             throw new UsernameNotFoundException("用户名不存在!");
         }
+        List<Role> roles = hrMapper.getRoles(hr.getId());
+        hr.setRoles(roles);
         return hr;
     }
 

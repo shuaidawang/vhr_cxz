@@ -3,6 +3,8 @@ package com.chouxiaozi.vhr.mapper;
 import com.chouxiaozi.vhr.model.Hr;
 import com.chouxiaozi.vhr.model.HrExample;
 import java.util.List;
+
+import com.chouxiaozi.vhr.model.Role;
 import org.apache.ibatis.annotations.Param;
 
 public interface HrMapper {
@@ -29,4 +31,6 @@ public interface HrMapper {
     int updateByPrimaryKey(Hr record);
 
     Hr loadUserByUsername(String username);
+
+    List<Role> getRoles(Integer hrId);
 }

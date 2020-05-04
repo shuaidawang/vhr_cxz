@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class HrRole implements Serializable {
     private Integer id;
 
-    private Integer hrid;
+    private Integer hrId;
 
     private Integer rid;
 
@@ -19,12 +19,12 @@ public class HrRole implements Serializable {
         this.id = id;
     }
 
-    public Integer getHrid() {
-        return hrid;
+    public Integer getHrId() {
+        return hrId;
     }
 
-    public void setHrid(Integer hrid) {
-        this.hrid = hrid;
+    public void setHrId(Integer hrId) {
+        this.hrId = hrId;
     }
 
     public Integer getRid() {
