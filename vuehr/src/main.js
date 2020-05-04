@@ -28,8 +28,13 @@ router.beforeEach((to, from, next) => {
   if(to.path == "/"){
     next();
   }else{
-    initMenu(router,store);
-    next();
+    if(window.sessionStorage.getItem("user")){//已登录正常访问
+      initMenu(router,store);
+      next();
+    }else{//未登录重定向
+      next('/?redirect='+to.path);
+    }
+
   }
 })
 
