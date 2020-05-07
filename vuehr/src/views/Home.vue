@@ -34,7 +34,7 @@
                     <div class="homeWelcome" v-if="this.$router.currentRoute.path == '/home'">
                         欢迎来到微人事!
                     </div>
-                    <router-view/>
+                    <router-view style="margin-top: 10px;"/>
                 </el-main>
             </el-container>
         </el-container>
