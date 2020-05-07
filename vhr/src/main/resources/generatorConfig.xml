@@ -25,7 +25,7 @@
 
         <!-- 配置连接数据信息 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/vhr?useUnicode=true&amp;characterEncoding=utf-8"
+                        connectionURL="jdbc:mysql://118.24.157.127:3306/vhr?useUnicode=true&amp;characterEncoding=utf-8"
                         userId="root"
                         password="P@Ss5201314" />
 
@@ -48,7 +48,7 @@
 
         <!-- 生成表对应的操作与实体对象 -->
         <!-- 基本表 -->
-        <table schema="" tableName="menu" domainObjectName="Menu" >
+        <table schema="" tableName="hr_haoyong" domainObjectName="HrHaoYong" >
             <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() AS id" identity="true" />
         </table>
     </context>
