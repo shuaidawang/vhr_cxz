@@ -5,7 +5,8 @@ import com.chouxiaozi.vhr.model.MenuRoleExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface MenuRoleMapper {
+public interface
+MenuRoleMapper {
     int countByExample(MenuRoleExample example);
 
     int deleteByExample(MenuRoleExample example);
