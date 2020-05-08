@@ -58,8 +58,7 @@
                         type: 'warning'
                     }).then(() => {
                         this.getRequest("/logout").then(resp=>{
-                            if(resp && resp.msg){
-                                this.$message.success({message: resp.msg})
+                            if(resp){
                                 window.sessionStorage.removeItem("user");
                                 this.$store.commit("initRoutes",[]);
                                 this.$router.replace("/");
