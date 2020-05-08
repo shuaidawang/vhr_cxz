@@ -43,4 +43,12 @@ public class PositionService {
             return RespBean.error("删除失败!");
         }
     }
+
+    public RespBean delPositions(Integer[] ids) {
+        if(positionMapper.delPositions(ids) == ids.length){
+            return RespBean.ok("删除成功!");
+        }else{
+            return RespBean.error("删除失败!");
+        }
+    }
 }

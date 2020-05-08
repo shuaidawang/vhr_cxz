@@ -193,4 +193,11 @@
       enabled = #{enabled,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--自定义sql-->
+  <delete id="delPositions">
+    delete from position where id in
+    <foreach collection="ids" item="id" separator="," open="(" close=")">
+      #{id}
+    </foreach>
+  </delete>
 </mapper>

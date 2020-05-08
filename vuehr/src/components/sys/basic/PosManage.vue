@@ -15,7 +15,8 @@
                     :data="positions"
                     size="small"
                     border
-                    style="width: 70%">
+                    style="width: 70%"
+                    @selection-change="handleSelectionChange">
                 <el-table-column
                         type="selection"
                         width="55">
@@ -48,13 +49,17 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <el-button type="danger" :disabled="this.multipleSelection.length==0" style="margin-top: 8px;"
+                       @click="batchDel">批量删除
+            </el-button>
         </div>
         <el-dialog
                 title="修改职位"
                 :visible.sync="dialogVisible"
                 width="30%">
-            <label>职位名称</label><el-input v-model="editpos.name" size="small" placeholder="请输入职位名称..."
-                                         style="width: 300px;margin-left: 8px;"></el-input>
+            <label>职位名称</label>
+            <el-input v-model="editpos.name" size="small" placeholder="请输入职位名称..."
+                      style="width: 300px;margin-left: 8px;"></el-input>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
                 <el-button type="primary" @click="confirmEdit">确 定</el-button>
@@ -73,9 +78,10 @@
                 },
                 positions: [],
                 dialogVisible: false,
-                editpos:{
-                    name:""
-                }
+                editpos: {
+                    name: ""
+                },
+                multipleSelection: []
             }
         },
         mounted() {
@@ -101,11 +107,11 @@
                     }
                 })
             },
-            handleEdit(index, data) {
-                this.dialogVisible =true;
-                Object.assign(this.editpos,data);
+            handleEdit(index, data) {//操作中的编辑
+                this.dialogVisible = true;
+                Object.assign(this.editpos, data);
             },
-            handleDelete(index, data) {
+            handleDelete(index, data) {//操作中的删除
                 this.$confirm('此操作将永久删除【' + data.name + '】职位, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -123,15 +129,29 @@
                     });
                 });
             },
-            confirmEdit(){
-                if(!this.editpos.name){
+            confirmEdit() {//修改对话框的确定按钮
+                if (!this.editpos.name) {
                     this.$message.warning("请输入正确的职位名称!");
                     return;
                 }
-                this.putRequest("/system/basic/",this.editpos).then(resp => {
+                this.putRequest("/system/basic/", this.editpos).then(resp => {
                     if (resp) {
                         this.initPostion();
                         this.dialogVisible = false;
+                    }
+                })
+            },
+            handleSelectionChange(val) {//table前面的复选框
+                this.multipleSelection = val;
+            },
+            batchDel() {//批量删除
+                let ids = '?';
+                this.multipleSelection.forEach(i => {
+                    ids+='ids='+i.id+'&';
+                })
+                this.deleteRequest("/system/basic/"+ids).then(resp => {
+                    if (resp) {
+                        this.initPostion();
                     }
                 })
             }
