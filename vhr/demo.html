@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+
+<body>
+	<div style="margin-left:100px;text-color:black;">
+		<button type="button" onclick="singleArray1()">singleArray1</button>
+		<button type="button" onclick="singleArray2()">singleArray2</button>
+		<button type="button" onclick="singleArray3()">singleArray3</button>
+		<button type="button" onclick="singleArray4()">singleArray4</button>
+		<button type="button" onclick="singleList1()">singleList1</button>
+	</div>
+</body>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script>
+
+var array=[1,2,3];
+
+//方式一：将参数拼接到url后面
+function singleArray1() {
+	$.ajax({
+		url: "http://localhost:8080/singleArray?ids=1&ids=2&ids=3",
+		data: {},
+		type: "post",
+		dataType: "json",
+		success: function (data) {
+			alert(data)
+		},
+	})
+};
+//方式二：直接传array，后端接口参数增加注解@RequestParam("ids[]") Integer[] ids
+//不可用 contentType:"application/json", 否则直接400错误
+function singleArray2() {
+	var array=[1,2,3];
+	$.ajax({
+		url: "http://localhost:8080/singleArray2",
+		data: {
+			"ids": array
+		},
+		type: "post",
+		dataType: "json",
+		success: function (data) {
+			alert(data)
+		},
+	})
+};
+//方式三：转成json字符串, 后端接口string去接收，然后再转成JSON数组处理
+//不能加contentType:"application/json",否则后台接收到的是null
+function singleArray3() {
+	var array=[1,2,3];
+	$.ajax({
+		url: "http://localhost:8080/singleArray3",
+		data: {
+			"ids": JSON.stringify(array)
+		},
+		type: "post",
+		dataType: "json",
+		success: function (data) {
+			alert(data)
+		},
+	})
+};
+//方式四（不推荐）：转成json字符串, 后端接口string去接收，然后再转成JSON数组处理
+//不能加contentType:"application/json",否则后台接收到的是null
+function singleArray4() {
+	var array=[1,2,3];
+	var ids = "";
+	for (let i of array) {
+		ids+= i+",";
+	}
+	ids=ids.substring(0,ids.length-1);
+	$.ajax({
+		url: "http://localhost:8080/singleArray3",
+		data: {
+			"ids": ids
+		},
+		type: "post",
+		dataType: "json",
+		success: function (data) {
+			alert(data)
+		}
+	})
+};
+//
+function singleList1() {
+	var array=[1,2,3];
+	$.ajax({
+		url: "http://localhost:8080/singleList",
+		data: {
+			"ids": array
+		},
+		type: "post",
+		dataType: "json",
+		success: function (data) {
+			alert(data)
+		},
+	})
+};
+</script>
+
+</html>
