@@ -4,8 +4,8 @@
             <el-input size="small" placeholder="添加职称..." prefix-icon="el-icon-plus" v-model="posTitle.name"
                       style="width: 300px;margin-right: 8px;">
             </el-input>
-            <el-select size="small" v-model="posTitle.titleLevel" placeholder="请选择">
-                <el-option v-for="item in titleLevels" :key="item.value" :label="item.label" :value="item.value">
+            <el-select size="small" v-model="posTitle.titleLevel" placeholder="职称等级">
+                <el-option v-for="item in titleLevels" :key="item" :label="item" :value="item">
                 </el-option>
             </el-select>
             <el-button size="small" type="primary" icon="el-icon-plus" @click="addJobLevel" style="margin-left: 8px;">
@@ -72,8 +72,8 @@
             </div>
             <div style="margin-top: 10px;">
                 <label style="margin-right: 10px;">职位等级</label>
-                <el-select size="small" v-model="editJobLevel.titleLevel" placeholder="请选择" style="width: 300px;">
-                    <el-option v-for="item in titleLevels" :key="item.value" :label="item.label" :value="item.value">
+                <el-select size="small" v-model="editJobLevel.titleLevel" placeholder="职称等级" style="width: 300px;">
+                    <el-option v-for="item in titleLevels" :key="item" :label="item" :value="item">
                     </el-option>
                 </el-select>
             </div>
@@ -113,12 +113,7 @@
             initSelect() {
                 this.getRequest("/system/basic/jobLevel/titleLevels").then(resp => {
                     if (resp) {
-                        resp.forEach(item => {
-                            let obj = {};
-                            obj.label = item;
-                            obj.value = item;
-                            this.titleLevels.push(obj);
-                        })
+                        this.titleLevels = resp;
                     }
                 })
             },
@@ -135,7 +130,7 @@
                     return;
                 }
                 if (!this.posTitle.titleLevel) {
-                    this.$message.warning("请选择职位级别!");
+                    this.$message.warning("请选择职称等级!");
                     return;
                 }
                 this.postRequest("/system/basic/jobLevel/", this.posTitle).then(resp => {
@@ -174,7 +169,7 @@
                     return;
                 }
                 if (!this.editJobLevel.titleLevel) {
-                    this.$message.warning("请选择职位级别!");
+                    this.$message.warning("请选择职称等级!");
                     return;
                 }
                 this.putRequest("/system/basic/jobLevel/", this.editJobLevel).then(resp => {
