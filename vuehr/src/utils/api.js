@@ -75,6 +75,9 @@ export const deleteRequest=(url,params)=>{
     return axios({
         method:'delete',
         url:`${base}${url}`,
-        data:params
+        data:params,
+        headers:{
+            'Content-Type':'application/json'
+        }
     })
 }
