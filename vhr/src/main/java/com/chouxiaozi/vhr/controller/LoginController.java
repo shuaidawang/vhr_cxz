@@ -1,6 +1,6 @@
 package com.chouxiaozi.vhr.controller;
 
-import com.chouxiaozi.vhr.services.HrService;
+import com.chouxiaozi.vhr.service.HrService;
 import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

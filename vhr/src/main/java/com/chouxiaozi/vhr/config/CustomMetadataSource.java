@@ -2,7 +2,7 @@ package com.chouxiaozi.vhr.config;
 
 import com.chouxiaozi.vhr.model.Menu;
 import com.chouxiaozi.vhr.model.Role;
-import com.chouxiaozi.vhr.services.MenuService;
+import com.chouxiaozi.vhr.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;

@@ -1,4 +1,4 @@
-package com.chouxiaozi.vhr.utils;
+package com.chouxiaozi.vhr.util;
 
 import com.chouxiaozi.vhr.model.Hr;
 import org.springframework.security.core.context.SecurityContextHolder;

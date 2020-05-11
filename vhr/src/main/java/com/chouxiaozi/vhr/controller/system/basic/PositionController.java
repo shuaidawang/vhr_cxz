@@ -1,7 +1,7 @@
 package com.chouxiaozi.vhr.controller.system.basic;
 
 import com.chouxiaozi.vhr.model.Position;
-import com.chouxiaozi.vhr.services.PositionService;
+import com.chouxiaozi.vhr.service.PositionService;
 import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;

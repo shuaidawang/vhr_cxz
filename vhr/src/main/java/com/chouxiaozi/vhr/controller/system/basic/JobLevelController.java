@@ -1,7 +1,7 @@
 package com.chouxiaozi.vhr.controller.system.basic;
 
 import com.chouxiaozi.vhr.model.JobLevel;
-import com.chouxiaozi.vhr.services.JobLevelService;
+import com.chouxiaozi.vhr.service.JobLevelService;
 import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;

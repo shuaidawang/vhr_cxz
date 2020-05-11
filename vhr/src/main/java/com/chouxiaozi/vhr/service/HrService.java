@@ -1,4 +1,4 @@
-package com.chouxiaozi.vhr.services;
+package com.chouxiaozi.vhr.service;
 
 import com.chouxiaozi.vhr.mapper.HrMapper;
 import com.chouxiaozi.vhr.model.Hr;

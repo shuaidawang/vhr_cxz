@@ -1,8 +1,8 @@
-package com.chouxiaozi.vhr.services;
+package com.chouxiaozi.vhr.service;
 
 import com.chouxiaozi.vhr.mapper.MenuMapper;
 import com.chouxiaozi.vhr.model.Menu;
-import com.chouxiaozi.vhr.utils.HrUtil;
+import com.chouxiaozi.vhr.util.HrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
