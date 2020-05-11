@@ -89,7 +89,7 @@
         },
         methods: {
             initPostion() {//初始化表格数据
-                this.getRequest("/system/basic/").then(resp => {
+                this.getRequest("/system/basic/pos/").then(resp => {
                     if (resp) {
                         this.positions = resp;
                     }
@@ -100,7 +100,7 @@
                     this.$message.warning("请输入正确的职位名称!");
                     return;
                 }
-                this.postRequest("/system/basic/", this.pos).then(resp => {
+                this.postRequest("/system/basic/pos/", this.pos).then(resp => {
                     if (resp) {
                         this.initPostion();
                         this.pos.name = "";
@@ -117,7 +117,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.deleteRequest("/system/basic/" + data.id).then(resp => {
+                    this.deleteRequest("/system/basic/pos/" + data.id).then(resp => {
                         if (resp) {
                             this.initPostion();
                         }
@@ -134,7 +134,7 @@
                     this.$message.warning("请输入正确的职位名称!");
                     return;
                 }
-                this.putRequest("/system/basic/", this.editpos).then(resp => {
+                this.putRequest("/system/basic/pos/", this.editpos).then(resp => {
                     if (resp) {
                         this.initPostion();
                         this.dialogVisible = false;
@@ -149,7 +149,7 @@
                 this.multipleSelection.forEach(i => {
                     ids+='ids='+i.id+'&';
                 })
-                this.deleteRequest("/system/basic/"+ids).then(resp => {
+                this.deleteRequest("/system/basic/pos/"+ids).then(resp => {
                     if (resp) {
                         this.initPostion();
                     }

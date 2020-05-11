@@ -23,7 +23,7 @@ import java.util.List;
  **/
 
 @RestController
-@RequestMapping("/system/basic")
+@RequestMapping("/system/basic/pos")
 public class PositionController {
     @Autowired
     private PositionService positionService;
