@@ -35,6 +35,12 @@
                         prop="createDate"
                         label="创建时间">
                 </el-table-column>
+                <el-table-column label="是否启用">
+                    <template slot-scope="scope">
+                        <el-tag type="success" v-if="scope.row.enabled">已启用</el-tag>
+                        <el-tag type="danger" v-else>未启用</el-tag>
+                    </template>
+                </el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-button
@@ -57,9 +63,19 @@
                 title="修改职位"
                 :visible.sync="dialogVisible"
                 width="30%">
-            <label>职位名称</label>
-            <el-input v-model="editpos.name" size="small" placeholder="请输入职位名称..."
-                      style="width: 300px;margin-left: 8px;"></el-input>
+            <div>
+                <el-tag>职位名称</el-tag>
+                <el-input v-model="editpos.name" size="small" placeholder="请输入职位名称..."
+                          style="width: 300px;margin-left: 8px;"></el-input>
+            </div>
+            <div style="margin-top: 10px;">
+                <el-tag style="margin-right: 10px;">是否启用</el-tag>
+                <el-switch
+                        v-model="editpos.enabled"
+                        active-text="启用"
+                        inactive-text="禁用">
+                </el-switch>
+            </div>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
                 <el-button type="primary" @click="confirmEdit">确 定</el-button>
@@ -79,7 +95,8 @@
                 positions: [],
                 dialogVisible: false,
                 editpos: {
-                    name: ""
+                    name: "",
+                    enabled:""
                 },
                 multipleSelection: []
             }

@@ -42,6 +42,12 @@
                         prop="createDate"
                         label="创建时间">
                 </el-table-column>
+                <el-table-column label="是否启用">
+                    <template slot-scope="scope">
+                        <el-tag type="success" v-if="scope.row.enabled">已启用</el-tag>
+                        <el-tag type="danger" v-else>未启用</el-tag>
+                    </template>
+                </el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-button
@@ -65,19 +71,26 @@
                 :visible.sync="dialogVisible"
                 width="30%">
             <div>
-                <label style="margin-right: 10px;">职位名称</label>
+                <el-tag style="margin-right: 10px;">职位名称</el-tag>
                 <el-input size="small" placeholder="修改职称..." v-model="editJobLevel.name"
                           style="width: 300px;margin-right: 8px;">
                 </el-input>
             </div>
             <div style="margin-top: 10px;">
-                <label style="margin-right: 10px;">职位等级</label>
+                <el-tag style="margin-right: 10px;">职位等级</el-tag>
                 <el-select size="small" v-model="editJobLevel.titleLevel" placeholder="职称等级" style="width: 300px;">
                     <el-option v-for="item in titleLevels" :key="item" :label="item" :value="item">
                     </el-option>
                 </el-select>
             </div>
-
+            <div style="margin-top: 10px;">
+                <el-tag style="margin-right: 10px;">是否启用</el-tag>
+                <el-switch
+                        v-model="editJobLevel.enabled"
+                        active-text="启用"
+                        inactive-text="禁用">
+                </el-switch>
+            </div>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
                 <el-button type="primary" @click="btnEdit">确 定</el-button>
@@ -101,7 +114,8 @@
                 dialogVisible: false,
                 editJobLevel: {
                     name: '',
-                    titleLevel: ''
+                    titleLevel: '',
+                    enabled:''
                 }
             }
         },
