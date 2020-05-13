@@ -38,7 +38,7 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-Vue.use(ElementUI);
+Vue.use(ElementUI, {size: 'small'});
 
 new Vue({
   router,
