@@ -176,4 +176,14 @@
       rid = #{rid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--自定义sql-->
+  <delete id="deleteByRoleId">
+    delete from menu_role where rid = #{rid}
+  </delete>
+  <insert id="insertRoleMenus">
+    insert into menu_role (`mid`, `rid`) values
+    <foreach collection="menuIds" separator="," item="item">
+      (#{item},#{rid})
+    </foreach>
+  </insert>
 </mapper>

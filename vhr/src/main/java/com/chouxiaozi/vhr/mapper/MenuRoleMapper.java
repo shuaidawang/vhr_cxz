@@ -27,4 +27,8 @@ public interface MenuRoleMapper {
     int updateByPrimaryKeySelective(MenuRole record);
 
     int updateByPrimaryKey(MenuRole record);
+
+    void deleteByRoleId(Integer rid);
+
+    Integer insertRoleMenus(@Param("rid") Integer rid, @Param("menuIds") Integer[] menuIds);
 }

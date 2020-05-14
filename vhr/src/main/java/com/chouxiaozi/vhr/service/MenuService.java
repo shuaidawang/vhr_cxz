@@ -1,19 +1,25 @@
 package com.chouxiaozi.vhr.service;
 
 import com.chouxiaozi.vhr.mapper.MenuMapper;
+import com.chouxiaozi.vhr.mapper.MenuRoleMapper;
+import com.chouxiaozi.vhr.mapper.RoleMapper;
 import com.chouxiaozi.vhr.model.Menu;
 import com.chouxiaozi.vhr.util.HrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class MenuService {
     @Autowired
     MenuMapper menuMapper;
+    @Autowired
+    MenuRoleMapper menuRoleMapper;
 
     public List<Menu> getMenuByHrId() {
         return menuMapper.getMenuByHrId(HrUtil.getCurrentHr().getId());
@@ -53,5 +59,20 @@ public class MenuService {
             }
         }
         return list1;
+    }
+
+    /**
+     * 获取角色拥有的菜单
+     */
+    public List<Integer> listMenusByRoleId(Integer roleId) {
+        return menuMapper.listMenusByRoleId(roleId);
+    }
+
+    @Transactional
+    public boolean updateRoleMenus(Integer rid, Integer[] menuIds) {
+        menuRoleMapper.deleteByRoleId(rid);
+
+        Integer rows = menuRoleMapper.insertRoleMenus(rid,menuIds);
+        return Objects.equals(menuIds.length, rows);
     }
 }

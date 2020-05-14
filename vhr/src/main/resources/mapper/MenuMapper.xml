@@ -354,4 +354,11 @@
       </otherwise>
     </choose>
   </select>
+  <select id="listMenusByRoleId" resultType="java.lang.Integer">
+      SELECT
+      mid
+  FROM
+      menu_role
+  WHERE  rid = #{roleId}
+  </select>
 </mapper>

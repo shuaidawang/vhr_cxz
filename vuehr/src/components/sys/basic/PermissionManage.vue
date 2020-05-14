@@ -9,7 +9,7 @@
             <el-button type="primary" style="margin-left: 10px;" size="small" class="el-icon-plus">添加角色</el-button>
         </div>
         <div style="margin-top: 10px;width: 610px">
-            <el-collapse accordion @change="change">
+            <el-collapse v-model="activeName" accordion @change="change">
                 <el-collapse-item :title="r.nameZh" :name="r.id" v-for="(r,index) in roles" :key="index">
                     <div>
                         <el-card class="box-card">
@@ -17,7 +17,19 @@
                                 <span>可访问的资源</span>
                                 <el-button style="float: right; padding: 3px 0;color: red;" type="text" icon="el-icon-delete"/>
                             </div>
-                            <el-tree :data="allMenus" :props="defaultProps"></el-tree>
+                            <el-tree
+                                    :data="allMenus"
+                                    show-checkbox
+                                    node-key="id"
+                                    :key="index"
+                                    ref="tree"
+                                    :default-checked-keys="selectMenus"
+                                    :props="defaultProps"></el-tree>
+                            <div style="display: flex;justify-content: flex-end">
+                                <el-button @click="btnCancel">取消修改</el-button>
+                                <el-button type="primary" @click="btnUpdate(r.id,index)">确认修改</el-button>
+                            </div>
+
                         </el-card>
                     </div>
                 </el-collapse-item>
@@ -40,12 +52,14 @@
                   label:'name',
                   children: 'children'
                 },
-                allMenus:[]
+                allMenus:[],
+                selectMenus:[],
+                activeName:-1
             }
         },
         mounted() {
             this.listRoles();
-            this.listMenus();
+
         },
         methods: {
             listRoles() {
@@ -57,7 +71,8 @@
             },
             change(rid){
                 if(rid){
-                    //TODO
+                    this.listMenus();
+                    this.listSelectMenus(rid);
                 }
             },
             listMenus(){
@@ -66,7 +81,29 @@
                         this.allMenus = resp;
                     }
                 })
-            }
+            },
+            listSelectMenus(rid){
+                this.getRequest("/system/basic/permission/listMenus/"+rid).then(resp=>{
+                    if(resp){
+                        this.selectMenus = resp;
+                    }
+                })
+            },
+            btnUpdate(rid,index){
+                let selectKeys = this.$refs.tree[index].getCheckedKeys(true);
+                var url = "/system/basic/permission/updateRoleMenus?rid="+rid;
+                selectKeys.forEach(item=>{
+                    url+="&menuIds="+item;
+                })
+                this.putRequest(url).then(resp=>{
+                    if(resp){
+                        this.activeName = -1;
+                    }
+                })
+            },
+            btnCancel(){
+                this.activeName = -1;
+            },
         }
     }
 </script>

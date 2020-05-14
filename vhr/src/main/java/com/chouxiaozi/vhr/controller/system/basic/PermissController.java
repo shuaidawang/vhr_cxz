@@ -4,9 +4,16 @@ import com.chouxiaozi.vhr.model.Menu;
 import com.chouxiaozi.vhr.model.Role;
 import com.chouxiaozi.vhr.service.MenuService;
 import com.chouxiaozi.vhr.service.RoleService;
+import com.chouxiaozi.vhr.vo.RespBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -28,7 +35,29 @@ public class PermissController {
     }
 
     @GetMapping("/listMenus")
+    @Cacheable
     public List<Menu> listMenus() {
         return menuService.listMenus();
+    }
+
+    /**
+     * 获取角色拥有的菜单
+     *
+     * @return
+     */
+    @GetMapping("/listMenus/{roleId}")
+    public List<Integer> listMenusByRoleId(@PathVariable("roleId") Integer roleId) {
+        return menuService.listMenusByRoleId(roleId);
+    }
+
+    /**
+     * 更新菜单权限
+     */
+    @PutMapping("/updateRoleMenus")
+    public RespBean updateRoleMenus(Integer rid, Integer[] menuIds) {
+        if (menuService.updateRoleMenus(rid, menuIds)) {
+            return RespBean.ok("修改成功");
+        }
+        return RespBean.error("修改失败");
     }
 }
