@@ -31,4 +31,6 @@ public interface MenuMapper {
     List<Menu> getMenuByHrId(Integer hrId);
 
     List<Menu> getMenuRole();
+
+    List<Menu> getByParentId(Integer parentId);
 }

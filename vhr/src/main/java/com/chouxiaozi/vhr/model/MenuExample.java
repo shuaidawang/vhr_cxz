@@ -455,62 +455,62 @@ public class MenuExample {
         }
 
         public Criteria andIconclsEqualTo(String value) {
-            addCriterion("iconCls =", value, "iconcls");
+            addCriterion("iconCls =", value, "iconCls");
             return (Criteria) this;
         }
 
         public Criteria andIconclsNotEqualTo(String value) {
-            addCriterion("iconCls <>", value, "iconcls");
+            addCriterion("iconCls <>", value, "iconCls");
             return (Criteria) this;
         }
 
         public Criteria andIconclsGreaterThan(String value) {
-            addCriterion("iconCls >", value, "iconcls");
+            addCriterion("iconCls >", value, "iconCls");
             return (Criteria) this;
         }
 
         public Criteria andIconclsGreaterThanOrEqualTo(String value) {
-            addCriterion("iconCls >=", value, "iconcls");
+            addCriterion("iconCls >=", value, "iconCls");
             return (Criteria) this;
         }
 
         public Criteria andIconclsLessThan(String value) {
-            addCriterion("iconCls <", value, "iconcls");
+            addCriterion("iconCls <", value, "iconCls");
             return (Criteria) this;
         }
 
         public Criteria andIconclsLessThanOrEqualTo(String value) {
-            addCriterion("iconCls <=", value, "iconcls");
+            addCriterion("iconCls <=", value, "iconCls");
             return (Criteria) this;
         }
 
         public Criteria andIconclsLike(String value) {
-            addCriterion("iconCls like", value, "iconcls");
+            addCriterion("iconCls like", value, "iconCls");
             return (Criteria) this;
         }
 
         public Criteria andIconclsNotLike(String value) {
-            addCriterion("iconCls not like", value, "iconcls");
+            addCriterion("iconCls not like", value, "iconCls");
             return (Criteria) this;
         }
 
         public Criteria andIconclsIn(List<String> values) {
-            addCriterion("iconCls in", values, "iconcls");
+            addCriterion("iconCls in", values, "iconCls");
             return (Criteria) this;
         }
 
         public Criteria andIconclsNotIn(List<String> values) {
-            addCriterion("iconCls not in", values, "iconcls");
+            addCriterion("iconCls not in", values, "iconCls");
             return (Criteria) this;
         }
 
         public Criteria andIconclsBetween(String value1, String value2) {
-            addCriterion("iconCls between", value1, value2, "iconcls");
+            addCriterion("iconCls between", value1, value2, "iconCls");
             return (Criteria) this;
         }
 
         public Criteria andIconclsNotBetween(String value1, String value2) {
-            addCriterion("iconCls not between", value1, value2, "iconcls");
+            addCriterion("iconCls not between", value1, value2, "iconCls");
             return (Criteria) this;
         }
 
@@ -525,52 +525,52 @@ public class MenuExample {
         }
 
         public Criteria andKeepaliveEqualTo(Boolean value) {
-            addCriterion("keepAlive =", value, "keepalive");
+            addCriterion("keepAlive =", value, "keepAlive");
             return (Criteria) this;
         }
 
         public Criteria andKeepaliveNotEqualTo(Boolean value) {
-            addCriterion("keepAlive <>", value, "keepalive");
+            addCriterion("keepAlive <>", value, "keepAlive");
             return (Criteria) this;
         }
 
         public Criteria andKeepaliveGreaterThan(Boolean value) {
-            addCriterion("keepAlive >", value, "keepalive");
+            addCriterion("keepAlive >", value, "keepAlive");
             return (Criteria) this;
         }
 
         public Criteria andKeepaliveGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("keepAlive >=", value, "keepalive");
+            addCriterion("keepAlive >=", value, "keepAlive");
             return (Criteria) this;
         }
 
         public Criteria andKeepaliveLessThan(Boolean value) {
-            addCriterion("keepAlive <", value, "keepalive");
+            addCriterion("keepAlive <", value, "keepAlive");
             return (Criteria) this;
         }
 
         public Criteria andKeepaliveLessThanOrEqualTo(Boolean value) {
-            addCriterion("keepAlive <=", value, "keepalive");
+            addCriterion("keepAlive <=", value, "keepAlive");
             return (Criteria) this;
         }
 
         public Criteria andKeepaliveIn(List<Boolean> values) {
-            addCriterion("keepAlive in", values, "keepalive");
+            addCriterion("keepAlive in", values, "keepAlive");
             return (Criteria) this;
         }
 
         public Criteria andKeepaliveNotIn(List<Boolean> values) {
-            addCriterion("keepAlive not in", values, "keepalive");
+            addCriterion("keepAlive not in", values, "keepAlive");
             return (Criteria) this;
         }
 
         public Criteria andKeepaliveBetween(Boolean value1, Boolean value2) {
-            addCriterion("keepAlive between", value1, value2, "keepalive");
+            addCriterion("keepAlive between", value1, value2, "keepAlive");
             return (Criteria) this;
         }
 
         public Criteria andKeepaliveNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("keepAlive not between", value1, value2, "keepalive");
+            addCriterion("keepAlive not between", value1, value2, "keepAlive");
             return (Criteria) this;
         }
 
@@ -585,52 +585,52 @@ public class MenuExample {
         }
 
         public Criteria andRequireauthEqualTo(Boolean value) {
-            addCriterion("requireAuth =", value, "requireauth");
+            addCriterion("requireAuth =", value, "requireAuth");
             return (Criteria) this;
         }
 
         public Criteria andRequireauthNotEqualTo(Boolean value) {
-            addCriterion("requireAuth <>", value, "requireauth");
+            addCriterion("requireAuth <>", value, "requireAuth");
             return (Criteria) this;
         }
 
         public Criteria andRequireauthGreaterThan(Boolean value) {
-            addCriterion("requireAuth >", value, "requireauth");
+            addCriterion("requireAuth >", value, "requireAuth");
             return (Criteria) this;
         }
 
         public Criteria andRequireauthGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("requireAuth >=", value, "requireauth");
+            addCriterion("requireAuth >=", value, "requireAuth");
             return (Criteria) this;
         }
 
         public Criteria andRequireauthLessThan(Boolean value) {
-            addCriterion("requireAuth <", value, "requireauth");
+            addCriterion("requireAuth <", value, "requireAuth");
             return (Criteria) this;
         }
 
         public Criteria andRequireauthLessThanOrEqualTo(Boolean value) {
-            addCriterion("requireAuth <=", value, "requireauth");
+            addCriterion("requireAuth <=", value, "requireAuth");
             return (Criteria) this;
         }
 
         public Criteria andRequireauthIn(List<Boolean> values) {
-            addCriterion("requireAuth in", values, "requireauth");
+            addCriterion("requireAuth in", values, "requireAuth");
             return (Criteria) this;
         }
 
         public Criteria andRequireauthNotIn(List<Boolean> values) {
-            addCriterion("requireAuth not in", values, "requireauth");
+            addCriterion("requireAuth not in", values, "requireAuth");
             return (Criteria) this;
         }
 
         public Criteria andRequireauthBetween(Boolean value1, Boolean value2) {
-            addCriterion("requireAuth between", value1, value2, "requireauth");
+            addCriterion("requireAuth between", value1, value2, "requireAuth");
             return (Criteria) this;
         }
 
         public Criteria andRequireauthNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("requireAuth not between", value1, value2, "requireauth");
+            addCriterion("requireAuth not between", value1, value2, "requireAuth");
             return (Criteria) this;
         }
 
@@ -645,52 +645,52 @@ public class MenuExample {
         }
 
         public Criteria andParentidEqualTo(Integer value) {
-            addCriterion("parentId =", value, "parentid");
+            addCriterion("parentId =", value, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentidNotEqualTo(Integer value) {
-            addCriterion("parentId <>", value, "parentid");
+            addCriterion("parentId <>", value, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentidGreaterThan(Integer value) {
-            addCriterion("parentId >", value, "parentid");
+            addCriterion("parentId >", value, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("parentId >=", value, "parentid");
+            addCriterion("parentId >=", value, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentidLessThan(Integer value) {
-            addCriterion("parentId <", value, "parentid");
+            addCriterion("parentId <", value, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentidLessThanOrEqualTo(Integer value) {
-            addCriterion("parentId <=", value, "parentid");
+            addCriterion("parentId <=", value, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentidIn(List<Integer> values) {
-            addCriterion("parentId in", values, "parentid");
+            addCriterion("parentId in", values, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentidNotIn(List<Integer> values) {
-            addCriterion("parentId not in", values, "parentid");
+            addCriterion("parentId not in", values, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentidBetween(Integer value1, Integer value2) {
-            addCriterion("parentId between", value1, value2, "parentid");
+            addCriterion("parentId between", value1, value2, "parentId");
             return (Criteria) this;
         }
 
         public Criteria andParentidNotBetween(Integer value1, Integer value2) {
-            addCriterion("parentId not between", value1, value2, "parentid");
+            addCriterion("parentId not between", value1, value2, "parentId");
             return (Criteria) this;
         }
 
@@ -775,7 +775,7 @@ public class MenuExample {
         }
 
         public Criteria andIconclsLikeInsensitive(String value) {
-            addCriterion("upper(iconCls) like", value.toUpperCase(), "iconcls");
+            addCriterion("upper(iconCls) like", value.toUpperCase(), "iconCls");
             return (Criteria) this;
         }
     }

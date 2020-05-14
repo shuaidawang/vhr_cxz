@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.chouxiaozi.vhr.mapper.MenuMapper" >
+<mapper namespace="com.chouxiaozi.vhr.mapper.MenuMapper">
   <resultMap id="BaseResultMap" type="com.chouxiaozi.vhr.model.Menu" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
@@ -91,7 +91,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from menu
     where id = #{id,jdbcType=INTEGER}
@@ -110,13 +110,13 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID() AS id
     </selectKey>
-    insert into menu (url, path, component, 
-      name, iconCls, keepAlive, 
+    insert into menu (url, path, component,
+      name, iconCls, keepAlive,
       requireAuth, parentId, enabled
       )
-    values (#{url,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{iconcls,jdbcType=VARCHAR}, #{keepalive,jdbcType=BIT}, 
-      #{requireauth,jdbcType=BIT}, #{parentid,jdbcType=INTEGER}, #{enabled,jdbcType=BIT}
+    values (#{url,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{iconCls,jdbcType=VARCHAR}, #{keepAlive,jdbcType=BIT},
+      #{requireAuth,jdbcType=BIT}, #{parentId,jdbcType=INTEGER}, #{enabled,jdbcType=BIT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.chouxiaozi.vhr.model.Menu" >
@@ -137,16 +137,16 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="iconcls != null" >
+      <if test="iconCls != null" >
         iconCls,
       </if>
-      <if test="keepalive != null" >
+      <if test="keepAlive != null" >
         keepAlive,
       </if>
-      <if test="requireauth != null" >
+      <if test="requireAuth != null" >
         requireAuth,
       </if>
-      <if test="parentid != null" >
+      <if test="parentId != null" >
         parentId,
       </if>
       <if test="enabled != null" >
@@ -166,17 +166,17 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="iconcls != null" >
-        #{iconcls,jdbcType=VARCHAR},
+      <if test="iconCls != null" >
+        #{iconCls,jdbcType=VARCHAR},
       </if>
-      <if test="keepalive != null" >
-        #{keepalive,jdbcType=BIT},
+      <if test="keepAlive != null" >
+        #{keepAlive,jdbcType=BIT},
       </if>
-      <if test="requireauth != null" >
-        #{requireauth,jdbcType=BIT},
+      <if test="requireAuth != null" >
+        #{requireAuth,jdbcType=BIT},
       </if>
-      <if test="parentid != null" >
-        #{parentid,jdbcType=INTEGER},
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
       </if>
       <if test="enabled != null" >
         #{enabled,jdbcType=BIT},
@@ -207,17 +207,17 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.iconcls != null" >
-        iconCls = #{record.iconcls,jdbcType=VARCHAR},
+      <if test="record.iconCls != null" >
+        iconCls = #{record.iconCls,jdbcType=VARCHAR},
       </if>
-      <if test="record.keepalive != null" >
-        keepAlive = #{record.keepalive,jdbcType=BIT},
+      <if test="record.keepAlive != null" >
+        keepAlive = #{record.keepAlive,jdbcType=BIT},
       </if>
-      <if test="record.requireauth != null" >
-        requireAuth = #{record.requireauth,jdbcType=BIT},
+      <if test="record.requireAuth != null" >
+        requireAuth = #{record.requireAuth,jdbcType=BIT},
       </if>
-      <if test="record.parentid != null" >
-        parentId = #{record.parentid,jdbcType=INTEGER},
+      <if test="record.parentId != null" >
+        parentId = #{record.parentId,jdbcType=INTEGER},
       </if>
       <if test="record.enabled != null" >
         enabled = #{record.enabled,jdbcType=BIT},
@@ -234,10 +234,10 @@
       path = #{record.path,jdbcType=VARCHAR},
       component = #{record.component,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
-      iconCls = #{record.iconcls,jdbcType=VARCHAR},
-      keepAlive = #{record.keepalive,jdbcType=BIT},
-      requireAuth = #{record.requireauth,jdbcType=BIT},
-      parentId = #{record.parentid,jdbcType=INTEGER},
+      iconCls = #{record.iconCls,jdbcType=VARCHAR},
+      keepAlive = #{record.keepAlive,jdbcType=BIT},
+      requireAuth = #{record.requireAuth,jdbcType=BIT},
+      parentId = #{record.parentId,jdbcType=INTEGER},
       enabled = #{record.enabled,jdbcType=BIT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -258,17 +258,17 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="iconcls != null" >
-        iconCls = #{iconcls,jdbcType=VARCHAR},
+      <if test="iconCls != null" >
+        iconCls = #{iconCls,jdbcType=VARCHAR},
       </if>
-      <if test="keepalive != null" >
-        keepAlive = #{keepalive,jdbcType=BIT},
+      <if test="keepAlive != null" >
+        keepAlive = #{keepAlive,jdbcType=BIT},
       </if>
-      <if test="requireauth != null" >
-        requireAuth = #{requireauth,jdbcType=BIT},
+      <if test="requireAuth != null" >
+        requireAuth = #{requireAuth,jdbcType=BIT},
       </if>
-      <if test="parentid != null" >
-        parentId = #{parentid,jdbcType=INTEGER},
+      <if test="parentId != null" >
+        parentId = #{parentId,jdbcType=INTEGER},
       </if>
       <if test="enabled != null" >
         enabled = #{enabled,jdbcType=BIT},
@@ -282,10 +282,10 @@
       path = #{path,jdbcType=VARCHAR},
       component = #{component,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
-      iconCls = #{iconcls,jdbcType=VARCHAR},
-      keepAlive = #{keepalive,jdbcType=BIT},
-      requireAuth = #{requireauth,jdbcType=BIT},
-      parentId = #{parentid,jdbcType=INTEGER},
+      iconCls = #{iconCls,jdbcType=VARCHAR},
+      keepAlive = #{keepAlive,jdbcType=BIT},
+      requireAuth = #{requireAuth,jdbcType=BIT},
+      parentId = #{parentId,jdbcType=INTEGER},
       enabled = #{enabled,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -341,5 +341,17 @@
         menu
         LEFT JOIN menu_role mr ON mr.mid = menu.id
         LEFT JOIN role ON role.id = mr.rid
+  </select>
+  <select id="getByParentId" resultMap="BaseResultMap">
+    select id,name from menu where enabled = 1
+    and
+    <choose>
+      <when test="null == parentId">
+        parentId is null
+      </when>
+      <otherwise>
+        parentId = #{parentId}
+      </otherwise>
+    </choose>
   </select>
 </mapper>
