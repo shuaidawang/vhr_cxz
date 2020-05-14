@@ -6,7 +6,7 @@
             </el-input>
             <el-input v-model="role.nameZh" placeholder="请输入角色中文名称..." style="width: 300px;margin-left: 10px;"
                       size="small"></el-input>
-            <el-button type="primary" style="margin-left: 10px;" size="small" class="el-icon-plus">添加角色</el-button>
+            <el-button type="primary" style="margin-left: 10px;" size="small" class="el-icon-plus" @click="btnAdd">添加角色</el-button>
         </div>
         <div style="margin-top: 10px;width: 610px">
             <el-collapse v-model="activeName" accordion @change="change">
@@ -15,7 +15,7 @@
                         <el-card class="box-card">
                             <div slot="header" class="clearfix">
                                 <span>可访问的资源</span>
-                                <el-button style="float: right; padding: 3px 0;color: red;" type="text" icon="el-icon-delete"/>
+                                <el-button style="float: right; padding: 3px 0;color: red;" type="text" icon="el-icon-delete" @click="btnDelete(r.id,r.nameZh)"/>
                             </div>
                             <el-tree
                                     :data="allMenus"
@@ -104,6 +104,37 @@
             btnCancel(){
                 this.activeName = -1;
             },
+            btnAdd(){
+                if (!this.role.name || !this.role.nameZh) {
+                    this.$message.warning("角色名称不能为空!");
+                    return;
+                }
+                this.postRequest("/system/basic/permission/",this.role).then(resp=>{
+                    if(resp){
+                        this.role.name="";
+                        this.role.nameZh="";
+                        this.listRoles();
+                    }
+                })
+            },
+            btnDelete(id,nameZh){
+                this.$confirm('此操作将永久删除【' + nameZh + '】角色, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.deleteRequest("/system/basic/permission/"+id).then(resp=>{
+                        if(resp){
+                            this.listRoles();
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            }
         }
     }
 </script>

@@ -71,7 +71,9 @@ public class MenuService {
     @Transactional
     public boolean updateRoleMenus(Integer rid, Integer[] menuIds) {
         menuRoleMapper.deleteByRoleId(rid);
-
+        if(null == menuIds || menuIds.length == 0){
+            return true;
+        }
         Integer rows = menuRoleMapper.insertRoleMenus(rid,menuIds);
         return Objects.equals(menuIds.length, rows);
     }
