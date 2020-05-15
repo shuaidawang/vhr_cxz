@@ -5,15 +5,15 @@ import com.chouxiaozi.vhr.model.Role;
 import com.chouxiaozi.vhr.service.MenuService;
 import com.chouxiaozi.vhr.service.RoleService;
 import com.chouxiaozi.vhr.vo.RespBean;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -59,5 +59,15 @@ public class PermissController {
             return RespBean.ok("修改成功");
         }
         return RespBean.error("修改失败");
+    }
+
+    @PostMapping("/")
+    public RespBean addRole(@RequestBody Role role){
+        return roleService.addRole(role);
+    }
+
+    @DeleteMapping("/{id}")
+    public RespBean delRole(@PathVariable("id") Integer id){
+        return roleService.delRole(id);
     }
 }

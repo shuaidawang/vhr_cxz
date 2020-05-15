@@ -102,7 +102,7 @@
       SELECT LAST_INSERT_ID() AS id
     </selectKey>
     insert into role (name, nameZh)
-    values (#{name,jdbcType=VARCHAR}, #{namezh,jdbcType=VARCHAR})
+    values (#{name,jdbcType=VARCHAR}, #{nameZh,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.chouxiaozi.vhr.model.Role" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -113,7 +113,7 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="namezh != null" >
+      <if test="nameZh != null" >
         nameZh,
       </if>
     </trim>
@@ -121,8 +121,8 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="namezh != null" >
-        #{namezh,jdbcType=VARCHAR},
+      <if test="nameZh != null" >
+        #{nameZh,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -141,8 +141,8 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.namezh != null" >
-        nameZh = #{record.namezh,jdbcType=VARCHAR},
+      <if test="record.nameZh != null" >
+        nameZh = #{record.nameZh,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -153,7 +153,7 @@
     update role
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      nameZh = #{record.namezh,jdbcType=VARCHAR}
+      nameZh = #{record.nameZh,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -164,8 +164,8 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="namezh != null" >
-        nameZh = #{namezh,jdbcType=VARCHAR},
+      <if test="nameZh != null" >
+        nameZh = #{nameZh,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -173,7 +173,7 @@
   <update id="updateByPrimaryKey" parameterType="com.chouxiaozi.vhr.model.Role" >
     update role
     set name = #{name,jdbcType=VARCHAR},
-      nameZh = #{namezh,jdbcType=VARCHAR}
+      nameZh = #{nameZh,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
