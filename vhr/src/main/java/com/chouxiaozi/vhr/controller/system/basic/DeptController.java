@@ -2,8 +2,13 @@ package com.chouxiaozi.vhr.controller.system.basic;
 
 import com.chouxiaozi.vhr.model.Department;
 import com.chouxiaozi.vhr.service.DeptService;
+import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +30,16 @@ public class DeptController {
     @GetMapping("/")
     public List<Department> getDeptTree(){
         return deptService.getDeptTree();
+    }
+
+    @PostMapping("/")
+    public RespBean addDept(@RequestBody Department department){
+        return deptService.addDept(department);
+    }
+
+    @DeleteMapping("/{id}")
+    public RespBean delDept(@PathVariable("id") Integer id){
+        return deptService.delDept(id);
     }
 
 }
