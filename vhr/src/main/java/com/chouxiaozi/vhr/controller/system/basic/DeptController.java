@@ -42,4 +42,9 @@ public class DeptController {
         return deptService.delDept(id);
     }
 
+    @GetMapping("/list")
+    public List<Department> getDeptList(){
+        return deptService.getDeptList();
+    }
+
 }

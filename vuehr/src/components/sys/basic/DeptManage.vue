@@ -8,8 +8,9 @@
         <el-tree
                 class="filter-tree"
                 style="width: 472px;margin-top: 10px;"
-                :data="depts"
+                :data="deptTree"
                 :props="defaultProps"
+                :expand-on-click-node="false"
                 :filter-node-method="filterNode"
                 ref="tree">
             <span class="custom-tree-node" slot-scope="{ node, data }">
@@ -30,6 +31,31 @@
                 </span>
               </span>
         </el-tree>
+        <el-dialog
+                title="提示"
+                :visible.sync="dialogVisible"
+                width="30%">
+                <div>
+                    <el-tag>上级部门</el-tag>
+                    <el-select v-model="dept.parentId" placeholder="请选择" style="width: 300px;margin-left: 8px;">
+                        <el-option
+                                v-for="item in deptList"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                        </el-option>
+                    </el-select>
+                </div>
+                <div style="margin-top: 10px;">
+                    <el-tag>部门名称</el-tag>
+                    <el-input v-model="dept.name" placeholder="请输入部门名称..."
+                              style="width: 300px;margin-left: 8px;" size="small"></el-input>
+                </div>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="dialogVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -39,10 +65,16 @@
         data() {
             return {
                 filterText: '',
-                depts: [],
+                deptTree: [],
                 defaultProps: {
                     children: 'children',
                     label: 'name'
+                },
+                deptList:[],
+                dialogVisible:false,
+                dept:{
+                    parentId:'',
+                    name:''
                 }
             }
         },
@@ -62,27 +94,35 @@
             initTree() {
                 this.getRequest("/system/basic/dept/").then(resp => {
                     if (resp) {
-                        this.depts = resp;
+                        this.deptTree = resp;
                     }
                 })
             },
             addDept(node,data){
-                const newChild = { id: id++, label: 'testtest', children: [] };
+                this.initDeptSelect();
+                this.dept.parentId = node.id;
+                this.dialogVisible = true;
+               /* const newChild = { id: id++, label: 'testtest', children: [] };
                 if (!data.children) {
                     this.$set(data, 'children', []);
                 }
-                data.children.push(newChild);
+                data.children.push(newChild);*/
+            },
+            btnAdd(){
+                this.postRequest("/system/basic/dept/").then(resp=>{
+                    if(resp){
+
+                    }
+                })
             },
             delDept(node,data){
-                console.log(node)
-                console.log(data)
                 this.$confirm('此操作将永久删除【' + data.name + '】部门, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     this.deleteRequest("/system/basic/dept/"+data.id).then(resp=>{
-                        if(resp){
+                        if(resp && resp.status==200){
                             const parent = node.parent;
                             const children = parent.data.children || parent.data;
                             const index = children.findIndex(d => d.id === data.id);
@@ -95,6 +135,13 @@
                         message: '已取消删除'
                     });
                 });
+            },
+            initDeptSelect(){
+                this.getRequest("/system/basic/dept/list").then(resp=>{
+                    if(resp){
+                        this.deptList = resp;
+                    }
+                })
             }
         },
     }

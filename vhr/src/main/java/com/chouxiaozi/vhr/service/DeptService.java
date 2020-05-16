@@ -2,6 +2,7 @@ package com.chouxiaozi.vhr.service;
 
 import com.chouxiaozi.vhr.mapper.DepartmentMapper;
 import com.chouxiaozi.vhr.model.Department;
+import com.chouxiaozi.vhr.model.DepartmentExample;
 import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,4 +38,9 @@ public class DeptService {
         return RespBean.error("删除失败!");
     }
 
+    public List<Department> getDeptList() {
+        DepartmentExample example = new DepartmentExample();
+        example.createCriteria().andEnabledEqualTo(true);
+        return departmentMapper.selectByExample(example);
+    }
 }
