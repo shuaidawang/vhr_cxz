@@ -29,4 +29,8 @@ public interface DepartmentMapper {
     int updateByPrimaryKey(Department record);
 
     List<Department> getDeptTree(@Param("id") Integer parentId);
+
+    void addDept(Department department);
+
+    void delDept(Department department);
 }

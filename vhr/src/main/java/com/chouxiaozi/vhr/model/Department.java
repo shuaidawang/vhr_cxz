@@ -18,6 +18,8 @@ public class Department implements Serializable {
 
     private List<Department> children;
 
+    private Integer result;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -74,5 +76,13 @@ public class Department implements Serializable {
 
     public void setChildren(List<Department> children) {
         this.children = children;
+    }
+
+    public Integer getResult() {
+        return result;
+    }
+
+    public void setResult(Integer result) {
+        this.result = result;
     }
 }

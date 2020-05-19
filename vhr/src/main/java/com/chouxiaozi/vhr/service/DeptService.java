@@ -25,14 +25,17 @@ public class DeptService {
     }
 
     public RespBean addDept(Department department) {
-        if (1 == departmentMapper.insertSelective(department)) {
+        department.setEnabled(true);
+        departmentMapper.addDept(department);
+        if (1 == department.getResult()) {
             return RespBean.ok("添加成功!");
         }
         return RespBean.error("添加失败!");
     }
 
-    public RespBean delDept(Integer id) {
-        if (1 == departmentMapper.deleteByPrimaryKey(id)) {
+    public RespBean delDept(Department department) {
+        departmentMapper.delDept(department);
+        if (1 == department.getResult()) {
             return RespBean.ok("删除成功!");
         }
         return RespBean.error("删除失败!");

@@ -232,4 +232,13 @@
   <select id="getDeptTree" resultMap="deptTree">
     select * from department where parentId = #{id} and enabled = 1
   </select>
+
+  <insert id="addDept" statementType="CALLABLE">
+      call addDep(#{name,mode=IN,jdbcType=VARCHAR},#{parentId,mode=IN,jdbcType=INTEGER},#{enabled,mode=IN,jdbcType=BOOLEAN},#{result,mode=OUT,jdbcType=INTEGER},#{id,mode=OUT,jdbcType=INTEGER})
+  </insert>
+
+  <delete id="delDept" statementType="CALLABLE">
+    call deleteDep(#{id,mode=IN,jdbcType=INTEGER},#{result,mode=OUT,jdbcType=INTEGER})
+  </delete>
+
 </mapper>

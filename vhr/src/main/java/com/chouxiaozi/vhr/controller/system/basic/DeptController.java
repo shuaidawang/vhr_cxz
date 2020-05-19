@@ -37,9 +37,9 @@ public class DeptController {
         return deptService.addDept(department);
     }
 
-    @DeleteMapping("/{id}")
-    public RespBean delDept(@PathVariable("id") Integer id){
-        return deptService.delDept(id);
+    @DeleteMapping("/")
+    public RespBean delDept(@RequestBody Department department){
+        return deptService.delDept(department);
     }
 
     @GetMapping("/list")
