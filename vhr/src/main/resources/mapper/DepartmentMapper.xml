@@ -225,8 +225,10 @@
   </update>
   <!--自定义sql-->
   <resultMap id="deptTree" extends="BaseResultMap" type="com.chouxiaozi.vhr.model.Department">
-    <collection property="children" column="id" select="getDeptTree"></collection>
+    <!--id作为参数递归调用getDeptTree，查询子节点-->
+    <collection property="children" column="id" select="getDeptTree" ofType="com.chouxiaozi.vhr.model.Department"></collection>
   </resultMap>
+  <!--根据父id获取子节点-->
   <select id="getDeptTree" resultMap="deptTree">
     select * from department where parentId = #{id} and enabled = 1
   </select>
