@@ -2,7 +2,8 @@
     <div>
         <el-input
                 style="width: 472px;"
-                placeholder="输入关键字进行过滤"
+                placeholder="请输入部门名称进行搜索..."
+                prefix-icon="el-icon-search"
                 v-model="filterText">
         </el-input>
         <el-tree
