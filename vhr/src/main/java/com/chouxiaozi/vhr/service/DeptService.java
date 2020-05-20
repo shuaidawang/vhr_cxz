@@ -35,10 +35,14 @@ public class DeptService {
 
     public RespBean delDept(Department department) {
         departmentMapper.delDept(department);
-        if (1 == department.getResult()) {
-            return RespBean.ok("删除成功!");
+        if (department.getResult() == -2) {
+            return RespBean.error("该部门下有子部门，删除失败");
+        } else if (department.getResult() == -1) {
+            return RespBean.error("该部门下有员工，删除失败");
+        } else if (department.getResult() == 1) {
+            return RespBean.ok("删除成功");
         }
-        return RespBean.error("删除失败!");
+        return RespBean.error("删除失败");
     }
 
     public List<Department> getDeptList() {

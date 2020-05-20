@@ -32,7 +32,7 @@
               </span>
         </el-tree>
         <el-dialog
-                title="提示"
+                title="添加部门"
                 :visible.sync="dialogVisible"
                 width="30%">
                 <div>
@@ -53,7 +53,7 @@
                 </div>
                 <span slot="footer" class="dialog-footer">
                     <el-button @click="dialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                    <el-button type="primary" @click="btnAdd">确 定</el-button>
                 </span>
         </el-dialog>
     </div>
@@ -89,7 +89,7 @@
         methods: {
             filterNode(value, data) {
                 if (!value) return true;
-                return data.label.indexOf(value) !== -1;
+                return data.name.indexOf(value) !== -1;
             },
             initTree() {
                 this.getRequest("/system/basic/dept/").then(resp => {
@@ -102,16 +102,13 @@
                 this.initDeptSelect();
                 this.dept.parentId = node.id;
                 this.dialogVisible = true;
-               /* const newChild = { id: id++, label: 'testtest', children: [] };
-                if (!data.children) {
-                    this.$set(data, 'children', []);
-                }
-                data.children.push(newChild);*/
             },
             btnAdd(){
-                this.postRequest("/system/basic/dept/").then(resp=>{
+                this.postRequest("/system/basic/dept/",this.dept).then(resp=>{
                     if(resp){
-
+                        this.initTree();
+                        this.dept= {parentId:'',name:''};
+                        this.dialogVisible = false;
                     }
                 })
             },
@@ -122,11 +119,8 @@
                     type: 'warning'
                 }).then(() => {
                     this.deleteRequest("/system/basic/dept/"+data.id).then(resp=>{
-                        if(resp && resp.status==200){
-                            const parent = node.parent;
-                            const children = parent.data.children || parent.data;
-                            const index = children.findIndex(d => d.id === data.id);
-                            children.splice(index, 1);
+                        if(resp){
+                            this.initTree();
                         }
                     })
                 }).catch(() => {
