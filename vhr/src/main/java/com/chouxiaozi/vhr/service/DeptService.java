@@ -24,11 +24,11 @@ public class DeptService {
         return departmentMapper.getDeptTree(-1);
     }
 
-    public RespBean addDept(Department department) {
-        department.setEnabled(true);
-        departmentMapper.addDept(department);
-        if (1 == department.getResult()) {
-            return RespBean.ok("添加成功!");
+    public RespBean addDept(Department dept) {
+        dept.setEnabled(true);
+        departmentMapper.addDept(dept);
+        if (1 == dept.getResult()) {
+            return RespBean.ok("添加成功!",dept);
         }
         return RespBean.error("添加失败!");
     }
