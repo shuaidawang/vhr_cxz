@@ -20,12 +20,14 @@
                   <el-button
                           size="mini"
                           type="primary"
+                          class="depBtn"
                           @click="() => addDept(data)">
                     添加部门
                   </el-button>
                   <el-button
                           type="danger"
                           size="mini"
+                          class="depBtn"
                           @click="() => delDept(node, data)">
                     删除部门
                   </el-button>
@@ -99,21 +101,25 @@
                     }
                 })
             },
-            addDept(node,data){
+            addDept(data){
                 this.initDeptSelect();
-                this.dept.parentId = node.id;
+                this.dept.parentId = data.id;
                 this.dialogVisible = true;
             },
             btnAdd(){
                 this.postRequest("/system/basic/dept/",this.dept).then(resp=>{
                     if(resp){
-                        this.initTree();
+                        this.addDep2Deps(this.deptTree, resp.obj);
                         this.dept= {parentId:'',name:''};
                         this.dialogVisible = false;
                     }
                 })
             },
             delDept(node,data){
+                if (data.isParent) {
+                    this.$message.error("该部门下有子部门，无法删除!");
+                    return;
+                }
                 this.$confirm('此操作将永久删除【' + data.name + '】部门, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -121,7 +127,7 @@
                 }).then(() => {
                     this.deleteRequest("/system/basic/dept/"+data.id).then(resp=>{
                         if(resp){
-                            this.initTree();
+                            this.removeDepFromDeps(null,this.deptTree,data.id);
                         }
                     })
                 }).catch(() => {
@@ -137,6 +143,36 @@
                         this.deptList = resp;
                     }
                 })
+            },
+            addDep2Deps(deps, dep) {
+                for (let i = 0; i < deps.length; i++) {
+                    let d = deps[i];
+                    if (d.id == dep.parentId) {
+                        d.children = d.children.concat(dep);
+                        if (d.children.length > 0) {
+                            d.isParent = true;
+                        }
+                        return;
+                    } else {
+                        if(d.children && d.children.length > 0){
+                            this.addDep2Deps(d.children, dep);
+                        }
+                    }
+                }
+            },
+            removeDepFromDeps(p,deps, id) {
+                for(let i=0;i<deps.length;i++){
+                    let d = deps[i];
+                    if (d.id == id) {
+                        deps.splice(i, 1);
+                        if (deps.length == 0) {
+                            p.isParent = false;
+                        }
+                        return;
+                    }else{
+                        this.removeDepFromDeps(d,d.children, id);
+                    }
+                }
             }
         },
     }
@@ -152,7 +188,7 @@
         padding-right: 8px;
         padding-top: 5px;
     }
-    .el-tree-node__content{
-        margin-top: 8px!important;
+    .depBtn {
+        padding: 2px;
     }
 </style>
