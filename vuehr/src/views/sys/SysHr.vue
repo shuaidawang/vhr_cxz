@@ -30,6 +30,7 @@
                                 active-color="#13ce66"
                                 inactive-color="#ff4949"
                                 active-text="启用"
+                                @change="enableChange(hr)"
                                 inactive-text="禁用">
                         </el-switch>
                     </div>
@@ -58,6 +59,16 @@
                 this.getRequest("/system/hr/").then(resp => {
                     if (resp) {
                         this.listHrs = resp;
+                    }
+                })
+            },
+            enableChange(hr) {
+                var obj = {
+                    id: hr.id,
+                    enabled: hr.enabled
+                }
+                this.putRequest("/system/hr/", obj).then(resp => {
+                    if (resp) {
                     }
                 })
             }
