@@ -34,7 +34,31 @@
                                 inactive-text="禁用">
                         </el-switch>
                     </div>
-                    <div>用户角色:</div>
+                    <div>用户角色:
+                        <el-tag style="margin-left: 4px;" type="success" v-for="(role,rindex) in hr.roles"
+                                :key="rindex">{{role.nameZh}}
+                        </el-tag>
+                        <el-popover
+                                placement="right"
+                                title="角色列表"
+                                width="200"
+                                trigger="click">
+                            <el-select
+                                    v-model="selectedRoles"
+                                    multiple
+                                    style="margin-left: 20px;"
+                                    placeholder="请选择">
+                                <el-option
+                                        v-for="(item,index) in hr.roles"
+                                        :key="index"
+                                        :label="item.nameZh"
+                                        :value="item.id">
+                                </el-option>
+                            </el-select>
+                            <el-button slot="reference" type="text" icon="el-icon-more"
+                                       style="margin-left: 4px;"></el-button>
+                        </el-popover>
+                    </div>
                     <div>备注:{{hr.remark}}</div>
                 </div>
             </el-card>
@@ -48,7 +72,8 @@
         data() {
             return {
                 keyword: '',
-                listHrs: []
+                listHrs: [],
+                selectedRoles: []
             }
         },
         mounted() {
