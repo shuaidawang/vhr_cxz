@@ -299,4 +299,35 @@
     hrr.rid = role.id
     and hrr.hrid = #{hrId}
   </select>
+  <!--查询hr列表与对应的roles-->
+  <resultMap id="listHrsMap" type="com.chouxiaozi.vhr.model.Hr" extends="BaseResultMap">
+    <collection property="roles" ofType="com.chouxiaozi.vhr.model.Role">
+      <id column="rid" property="id"></id>
+      <result column="rname" property="name"></result>
+      <result column="rnameZh" property="nameZh"></result>
+    </collection>
+  </resultMap>
+  <select id="listHrs" resultMap="listHrsMap">
+    SELECT
+      hr.id,
+      hr.`name`,
+      hr.phone,
+      hr.telephone,
+      hr.address,
+      hr.enabled,
+      hr.username,
+      hr.userface,
+      hr.remark,
+      role.id rid,
+      role.NAME rname,
+      role.nameZh rnameZh
+    FROM
+      hr
+        LEFT JOIN hr_role hrr ON hrr.hrid = hr.id
+        LEFT JOIN role ON role.id = hrr.rid
+    where hr.id != #{hrId}
+    <if test="null != keyword and '' != keyword">
+      and hr.name like CONCAT("%",#{keyword},"%")
+    </if>
+  </select>
 </mapper>

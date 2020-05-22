@@ -33,4 +33,6 @@ public interface HrMapper {
     Hr loadUserByUsername(String username);
 
     List<Role> getRoles(Integer hrId);
+
+    List<Hr> listHrs(@Param("hrId") Integer hrId,@Param("keyword") String keyword);
 }

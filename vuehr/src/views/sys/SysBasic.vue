@@ -19,7 +19,7 @@
         name: "SysCfg",
         data(){
             return{
-                activeName:'second'
+                activeName:'first'
             }
         },
         components:{

@@ -3,6 +3,7 @@ package com.chouxiaozi.vhr.service;
 import com.chouxiaozi.vhr.mapper.HrMapper;
 import com.chouxiaozi.vhr.model.Hr;
 import com.chouxiaozi.vhr.model.Role;
+import com.chouxiaozi.vhr.util.HrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,7 +29,7 @@ public class HrService implements UserDetailsService {
         return hr;
     }
 
-    public Hr selectUserByUsername(String username){
-        return hrMapper.loadUserByUsername(username);
+    public List<Hr> listHrs(String keyword) {
+        return hrMapper.listHrs(HrUtil.getCurrentHr().getId(),keyword);
     }
 }
