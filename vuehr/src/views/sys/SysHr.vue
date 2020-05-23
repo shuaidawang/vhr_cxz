@@ -7,14 +7,14 @@
                     prefix-icon="el-icon-search"
                     v-model="keyword">
             </el-input>
-            <el-button icon="el-icon-search" type="primary">搜索</el-button>
+            <el-button icon="el-icon-search" type="primary" @click="initCards()">搜索</el-button>
         </div>
         <div class="cardContainer">
             <el-card class="cardClass" v-for="(hr,i) in listHrs" :key="i">
                 <div slot="header" class="clearfix">
                     <span>{{hr.name}}</span>
                     <el-button style="float: right; padding: 3px 0;color: #ff0000" type="text"
-                               icon="el-icon-delete"></el-button>
+                               icon="el-icon-delete" @click="delHr(hr)"></el-button>
                 </div>
                 <div class="headImgContainer">
                     <img :src="hr.userface" :alt="hr.name" :title="hr.name" class="headImg">
@@ -84,7 +84,7 @@
         },
         methods: {
             initCards() {
-                this.getRequest("/system/hr/").then(resp => {
+                this.getRequest("/system/hr/?keyword="+this.keyword).then(resp => {
                     if (resp) {
                         this.listHrs = resp;
                     }
@@ -138,6 +138,24 @@
                         }
                    })
                 }
+            },
+            delHr(hr){
+                this.$confirm('此操作将永久删除用户【' + hr.name + '】, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.deleteRequest("/system/hr/"+hr.id).then(resp=>{
+                        if(resp){
+                            this.initCards();
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
             }
         }
     }

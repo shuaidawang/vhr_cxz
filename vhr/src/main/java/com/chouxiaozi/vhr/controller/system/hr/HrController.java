@@ -6,7 +6,9 @@ import com.chouxiaozi.vhr.service.HrService;
 import com.chouxiaozi.vhr.service.RoleService;
 import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,5 +54,13 @@ public class HrController {
             return RespBean.ok("更新成功!");
         }
         return RespBean.error("更新失败!");
+    }
+
+    @DeleteMapping("/{id}")
+    public RespBean deleteHr(@PathVariable("id") Integer hrId) {
+        if (1 == hrService.deleteHr(hrId)) {
+            return RespBean.ok("删除成功!");
+        }
+        return RespBean.error("删除失败!");
     }
 }

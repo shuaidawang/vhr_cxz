@@ -43,12 +43,16 @@ public class RoleService {
 
     @Transactional
     public int updateRoles(Integer hrId, Integer[] roles) {
-        HrRoleExample hrRoleExample = new HrRoleExample();
-        hrRoleExample.createCriteria().andHridEqualTo(hrId);
-        hrRoleMapper.deleteByExample(hrRoleExample);
+        delRolesByHrId(hrId);
         if(roles.length == 0){
             return 0;
         }
         return hrRoleMapper.batchInsert(hrId, roles);
+    }
+
+    public void delRolesByHrId(Integer hrId) {
+        HrRoleExample hrRoleExample = new HrRoleExample();
+        hrRoleExample.createCriteria().andHridEqualTo(hrId);
+        hrRoleMapper.deleteByExample(hrRoleExample);
     }
 }
