@@ -27,4 +27,6 @@ public interface HrRoleMapper {
     int updateByPrimaryKeySelective(HrRole record);
 
     int updateByPrimaryKey(HrRole record);
+
+    int batchInsert(@Param("hrId") Integer hrId, @Param("roles") Integer[] roles);
 }

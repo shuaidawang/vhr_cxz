@@ -1,7 +1,9 @@
 package com.chouxiaozi.vhr.controller.system.hr;
 
 import com.chouxiaozi.vhr.model.Hr;
+import com.chouxiaozi.vhr.model.Role;
 import com.chouxiaozi.vhr.service.HrService;
+import com.chouxiaozi.vhr.service.RoleService;
 import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +25,30 @@ import java.util.List;
 public class HrController {
     @Autowired
     HrService hrService;
+    @Autowired
+    RoleService roleService;
 
     @GetMapping("/")
-    public List<Hr> listHrs(String keyword){
+    public List<Hr> listHrs(String keyword) {
         return hrService.listHrs(keyword);
     }
 
     @PutMapping("/")
-    public RespBean updateHr(@RequestBody Hr hr){
-        if(1 == hrService.updateHr(hr)){
+    public RespBean updateHr(@RequestBody Hr hr) {
+        if (1 == hrService.updateHr(hr)) {
+            return RespBean.ok("更新成功!");
+        }
+        return RespBean.error("更新失败!");
+    }
+
+    @GetMapping("/listRoles")
+    public List<Role> listRoles() {
+        return roleService.listRoles();
+    }
+
+    @PutMapping("/updateRoles")
+    public RespBean updateRoles(Integer hrId, Integer[] roles) {
+        if (roles.length == roleService.updateRoles(hrId, roles)) {
             return RespBean.ok("更新成功!");
         }
         return RespBean.error("更新失败!");

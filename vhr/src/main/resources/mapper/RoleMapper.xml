@@ -176,4 +176,14 @@
       nameZh = #{nameZh,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--自定义sql-->
+  <select id="listRolesByHrId" resultMap="BaseResultMap">
+    SELECT
+      role.*
+    FROM
+      role
+        INNER JOIN hr_role hrr ON hrr.rid = role.id
+    WHERE
+      hrr.hrid = #{hrId}
+  </select>
 </mapper>

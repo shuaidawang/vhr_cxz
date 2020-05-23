@@ -176,4 +176,15 @@
       rid = #{rid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <insert id="batchInsert">
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    insert into hr_role (hrid, rid)
+    values
+    <foreach collection="roles" item="rid" separator=",">
+      (#{hrId,jdbcType=INTEGER}, #{rid,jdbcType=INTEGER})
+    </foreach>
+
+  </insert>
 </mapper>

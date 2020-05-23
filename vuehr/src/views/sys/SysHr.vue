@@ -42,15 +42,16 @@
                                 placement="right"
                                 title="角色列表"
                                 width="200"
+                                @show="showPop(hr)"
+                                @hide="hidePop(hr)"
                                 trigger="click">
                             <el-select
                                     v-model="selectedRoles"
                                     multiple
-                                    style="margin-left: 20px;"
-                                    placeholder="请选择">
+                                    style="margin-left: 20px;">
                                 <el-option
-                                        v-for="(item,index) in hr.roles"
-                                        :key="index"
+                                        v-for="item in allRoles"
+                                        :key="item.id"
                                         :label="item.nameZh"
                                         :value="item.id">
                                 </el-option>
@@ -73,11 +74,13 @@
             return {
                 keyword: '',
                 listHrs: [],
-                selectedRoles: []
+                selectedRoles: [],
+                allRoles: []
             }
         },
         mounted() {
             this.initCards();
+            this.initAllRoles();
         },
         methods: {
             initCards() {
@@ -96,6 +99,45 @@
                     if (resp) {
                     }
                 })
+            },
+            initAllRoles() {
+                this.getRequest("/system/hr/listRoles").then(resp => {
+                    if (resp) {
+                        this.allRoles = resp;
+                    }
+                })
+            },
+            showPop(hr) {
+                let roles = hr.roles;
+                this.selectedRoles = [];
+                roles.forEach(r => {
+                    this.selectedRoles.push(r.id);
+                })
+            },
+            hidePop(hr) {
+                let roles = hr.roles;
+                let modifyFlag = false;
+                if (roles.length == this.selectedRoles.length) {
+                    for (let i = 0; i < roles.length; i++) {
+                        if(this.selectedRoles.indexOf(roles[i].id) == -1){
+                            modifyFlag = true;
+                            break;
+                        }
+                    }
+                }else{
+                    modifyFlag = true;
+                }
+                var url = "/system/hr/updateRoles?hrId="+hr.id;
+                this.selectedRoles.forEach(role=>{
+                    url+="&roles="+role
+                })
+                if(modifyFlag){
+                   this.putRequest(url).then(resp=>{
+                        if(resp){
+                            this.initCards();
+                        }
+                   })
+                }
             }
         }
     }

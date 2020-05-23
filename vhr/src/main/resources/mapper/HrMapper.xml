@@ -329,5 +329,6 @@
     <if test="null != keyword and '' != keyword">
       and hr.name like CONCAT("%",#{keyword},"%")
     </if>
+    ORDER BY hr.id, rid
   </select>
 </mapper>

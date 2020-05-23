@@ -1,10 +1,13 @@
 package com.chouxiaozi.vhr.service;
 
+import com.chouxiaozi.vhr.mapper.HrRoleMapper;
 import com.chouxiaozi.vhr.mapper.RoleMapper;
+import com.chouxiaozi.vhr.model.HrRoleExample;
 import com.chouxiaozi.vhr.model.Role;
 import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,6 +15,9 @@ import java.util.List;
 public class RoleService {
     @Autowired
     RoleMapper roleMapper;
+
+    @Autowired
+    HrRoleMapper hrRoleMapper;
 
     public List<Role> listRoles() {
         return roleMapper.selectByExample(null);
@@ -29,5 +35,20 @@ public class RoleService {
             return RespBean.ok("删除成功!");
         }
         return RespBean.error("删除失败!");
+    }
+
+    public List<Role> listRolesByHrId(Integer hrId){
+        return roleMapper.listRolesByHrId(hrId);
+    }
+
+    @Transactional
+    public int updateRoles(Integer hrId, Integer[] roles) {
+        HrRoleExample hrRoleExample = new HrRoleExample();
+        hrRoleExample.createCriteria().andHridEqualTo(hrId);
+        hrRoleMapper.deleteByExample(hrRoleExample);
+        if(roles.length == 0){
+            return 0;
+        }
+        return hrRoleMapper.batchInsert(hrId, roles);
     }
 }
