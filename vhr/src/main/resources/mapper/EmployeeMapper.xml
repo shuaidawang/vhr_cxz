@@ -582,7 +582,7 @@
     <result column="posName" property="posName"></result>
   </resultMap>
     <!--自定义sql-->
-    <select id="listEmployees" resultMap="listMap">
+    <select id="listEmployeesByPage" resultMap="listMap">
     SELECT
       e.*,
       nation.NAME nationName,
@@ -597,6 +597,9 @@
       LEFT JOIN department dept on dept.id = e.departmentId
       LEFT JOIN joblevel on  joblevel.id = e.jobLevelId
       LEFT JOIN position on position.id = e.posId
-      limit 0,5
+      limit #{curPage},#{size}
   </select>
+    <select id="getTotal" resultType="java.lang.Long">
+      SELECT count(*) FROM employee
+    </select>
 </mapper>

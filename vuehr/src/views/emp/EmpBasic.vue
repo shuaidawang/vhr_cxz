@@ -5,12 +5,12 @@
                 <el-input size="mini" placeholder="通过员工号搜索..." prefix-icon="el-icon-search"
                           style="width: 300px;margin-right: 8px;"></el-input>
                 <el-button size="mini" type="primary" icon="el-icon-search">搜索</el-button>
-                <el-button size="mini" type="primary" icon="el-icon-d-arrow-right">高级搜索</el-button>
+                <el-button size="mini" type="primary"><i class="fa fa-angle-double-down" aria-hidden="true"></i>高级搜索</el-button>
             </div>
             <div>
-                <el-button size="mini" type="success" icon="el-icon-d-arrow-right">导入数据</el-button>
-                <el-button size="mini" type="success" icon="el-icon-d-arrow-right">导出数据</el-button>
-                <el-button size="mini" type="primary" icon="el-icon-d-arrow-right">添加员工</el-button>
+                <el-button size="mini" type="success" icon="el-icon-upload2">导入数据</el-button>
+                <el-button size="mini" type="success" icon="el-icon-download">导出数据</el-button>
+                <el-button size="mini" type="primary" icon="el-icon-plus">添加员工</el-button>
             </div>
         </div>
         <div style="margin-top: 20px;">
@@ -18,6 +18,10 @@
                     :data="tableData"
                     border
                     style="width: 100%">
+                <el-table-column
+                        type="selection"
+                        width="55">
+                </el-table-column>
                 <el-table-column
                         fixed
                         prop="name"
@@ -141,8 +145,17 @@
                 </el-table-column>
             </el-table>
         </div>
-        <div>
-
+        <div style="display: flex;justify-content: space-between;">
+            <el-button type="danger">批量删除</el-button>
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="curPage"
+                    :page-sizes="[10, 50, 100, 200]"
+                    :page-size="10"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="total">
+            </el-pagination>
         </div>
     </div>
 </template>
@@ -152,7 +165,10 @@
         name: "EmpBasic",
         data() {
             return {
-                tableData: []
+                tableData: [],
+                total: null,
+                curPage:1,
+                size:10
             }
         },
         mounted() {
@@ -160,11 +176,20 @@
         },
         methods: {
             initTable() {
-                this.getRequest("/emp/basic/").then(resp=>{
+                this.getRequest("/emp/basic/?curPage="+this.curPage+"&size="+this.size).then(resp=>{
                     if(resp){
-                        this.tableData = resp;
+                        this.tableData = resp.data;
+                        this.total = resp.total;
                     }
                 })
+            },
+            handleCurrentChange(e){
+                this.curPage = e;
+                this.initTable();
+            },
+            handleSizeChange(e){
+                this.size = e;
+                this.initTable();
             }
         }
     }
