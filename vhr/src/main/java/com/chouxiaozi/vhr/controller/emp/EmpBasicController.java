@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/emp/basic")
-public class BasicController {
+public class EmpBasicController {
     @Autowired
     EmployeeService employeeService;
     @GetMapping("/")
