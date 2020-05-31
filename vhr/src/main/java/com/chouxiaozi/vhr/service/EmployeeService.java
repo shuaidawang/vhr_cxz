@@ -18,7 +18,7 @@ public class EmployeeService {
         if (null == size) {
             size = 10;
         }
-        curPage = curPage - 1;
+        curPage = (curPage - 1)*curPage;
         bean.setData(employeeMapper.listEmployeesByPage(curPage, size));
         bean.setTotal(employeeMapper.getTotal());
         return bean;

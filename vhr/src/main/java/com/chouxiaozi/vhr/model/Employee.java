@@ -1,6 +1,7 @@
 package com.chouxiaozi.vhr.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jdk.nashorn.internal.objects.annotations.Getter;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -72,6 +73,12 @@ public class Employee implements Serializable {
     private Date endContract;
 
     private Integer workAge;
+
+    private Nation nation;
+    private Politicsstatus politicsstatus;
+    private Department department;
+    private JobLevel jobLevel;
+    private Position position;
 
     private static final long serialVersionUID = 1L;
 
@@ -337,5 +344,45 @@ public class Employee implements Serializable {
 
     public void setPosName(String posName) {
         this.posName = posName;
+    }
+
+    public Nation getNation() {
+        return nation;
+    }
+
+    public void setNation(Nation nation) {
+        this.nation = nation;
+    }
+
+    public Politicsstatus getPoliticsstatus() {
+        return politicsstatus;
+    }
+
+    public void setPoliticsstatus(Politicsstatus politicsstatus) {
+        this.politicsstatus = politicsstatus;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public JobLevel getJobLevel() {
+        return jobLevel;
+    }
+
+    public void setJobLevel(JobLevel jobLevel) {
+        this.jobLevel = jobLevel;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }

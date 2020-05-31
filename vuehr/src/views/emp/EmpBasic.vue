@@ -54,7 +54,7 @@
                         width="80">
                 </el-table-column>
                 <el-table-column
-                        prop="nationName"
+                        prop="nation.name"
                         label="民族"
                         width="80">
                 </el-table-column>
@@ -64,7 +64,7 @@
                         width="80">
                 </el-table-column>
                 <el-table-column
-                        prop="politicName"
+                        prop="politicsstatus.name"
                         label="政治面貌"
                         width="100">
                 </el-table-column>
@@ -84,17 +84,17 @@
                         width="160">
                 </el-table-column>
                 <el-table-column
-                        prop="departmentName"
+                        prop="department.name"
                         label="所属部门"
                         width="80">
                 </el-table-column>
                 <el-table-column
-                        prop="posName"
+                        prop="position.name"
                         label="职位"
                         width="100">
                 </el-table-column>
                 <el-table-column
-                        prop="jobLevelName"
+                        prop="jobLevel.name"
                         label="职称"
                         width="100">
                 </el-table-column>

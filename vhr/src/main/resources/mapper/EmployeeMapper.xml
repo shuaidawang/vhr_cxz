@@ -575,11 +575,26 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <resultMap id="listMap" type="com.chouxiaozi.vhr.model.Employee" extends="BaseResultMap">
-    <result column="nationName" property="nationName"></result>
-    <result column="politicName" property="politicName"></result>
-    <result column="departmentName" property="departmentName"></result>
-    <result column="jobLevelName" property="jobLevelName"></result>
-    <result column="posName" property="posName"></result>
+      <association property="nation" javaType="com.chouxiaozi.vhr.model.Nation">
+          <id column="nationId" property="id"/>
+          <result column="nationName" property="name"/>
+      </association>
+      <association property="politicsstatus" javaType="com.chouxiaozi.vhr.model.Politicsstatus">
+          <id column="politicId" property="id"/>
+          <result column="politicName" property="name"/>
+      </association>
+      <association property="department" javaType="com.chouxiaozi.vhr.model.Department">
+          <id column="departmentId" property="id"/>
+          <result column="departmentName" property="name"/>
+      </association>
+      <association property="jobLevel" javaType="com.chouxiaozi.vhr.model.JobLevel">
+          <id column="jobLevelId" property="id"/>
+          <result column="jobLevelName" property="name"/>
+      </association>
+      <association property="position" javaType="com.chouxiaozi.vhr.model.Position">
+          <id column="posId" property="id"/>
+          <result column="posName" property="name"/>
+      </association>
   </resultMap>
     <!--自定义sql-->
     <select id="listEmployeesByPage" resultMap="listMap">
@@ -597,6 +612,7 @@
       LEFT JOIN department dept on dept.id = e.departmentId
       LEFT JOIN joblevel on  joblevel.id = e.jobLevelId
       LEFT JOIN position on position.id = e.posId
+      order by e.workID
       limit #{curPage},#{size}
   </select>
     <select id="getTotal" resultType="java.lang.Long">
