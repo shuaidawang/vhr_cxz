@@ -10,7 +10,7 @@ public class EmployeeService {
     @Autowired
     EmployeeMapper employeeMapper;
 
-    public RespPageBean listEmployeesByPage(Integer curPage, Integer size) {
+    public RespPageBean listEmployeesByPage(Integer curPage, Integer size, String keyword) {
         RespPageBean bean = new RespPageBean();
         if (null == curPage) {
             curPage = 1;
@@ -18,9 +18,9 @@ public class EmployeeService {
         if (null == size) {
             size = 10;
         }
-        curPage = (curPage - 1)*curPage;
-        bean.setData(employeeMapper.listEmployeesByPage(curPage, size));
-        bean.setTotal(employeeMapper.getTotal());
+        curPage = (curPage - 1) * curPage;
+        bean.setData(employeeMapper.listEmployeesByPage(curPage, size, keyword));
+        bean.setTotal(employeeMapper.getTotal(keyword));
         return bean;
     }
 }

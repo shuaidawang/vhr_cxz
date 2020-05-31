@@ -612,10 +612,20 @@
       LEFT JOIN department dept on dept.id = e.departmentId
       LEFT JOIN joblevel on  joblevel.id = e.jobLevelId
       LEFT JOIN position on position.id = e.posId
+      <if test="'' != keyword and null != keyword">
+          <where>
+              e.name like concat("%",#{keyword},"%")
+          </where>
+      </if>
       order by e.workID
       limit #{curPage},#{size}
   </select>
     <select id="getTotal" resultType="java.lang.Long">
-      SELECT count(*) FROM employee
+      SELECT count(*) FROM employee e
+      <if test="'' != keyword and null != keyword">
+        <where>
+            e.name like concat("%",#{keyword},"%")
+        </where>
+      </if>
     </select>
 </mapper>

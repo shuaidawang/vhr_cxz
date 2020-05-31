@@ -28,7 +28,7 @@ public interface EmployeeMapper {
 
     int updateByPrimaryKey(Employee record);
 
-    List<Employee> listEmployeesByPage(@Param("curPage") Integer curPage, @Param("size") Integer size);
+    List<Employee> listEmployeesByPage(@Param("curPage") Integer curPage, @Param("size") Integer size, @Param("keyword") String keyword);
 
-    Long getTotal();
+    Long getTotal(String keyword);
 }

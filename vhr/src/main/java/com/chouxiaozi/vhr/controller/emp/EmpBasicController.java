@@ -19,7 +19,7 @@ public class EmpBasicController {
     EmployeeService employeeService;
     @GetMapping("/")
     public RespPageBean listEmployeesByPage(@RequestParam(defaultValue = "1") Integer curPage
-            , @RequestParam(defaultValue = "10")Integer size){
-        return employeeService.listEmployeesByPage(curPage, size);
+            , @RequestParam(defaultValue = "10")Integer size, String keyword){
+        return employeeService.listEmployeesByPage(curPage, size, keyword);
     }
 }

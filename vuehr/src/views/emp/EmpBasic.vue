@@ -2,9 +2,12 @@
     <div>
         <div style="display: flex;justify-content: space-between;margin-top: 20px;">
             <div>
-                <el-input size="mini" placeholder="通过员工号搜索..." prefix-icon="el-icon-search"
-                          style="width: 300px;margin-right: 8px;"></el-input>
-                <el-button size="mini" type="primary" icon="el-icon-search">搜索</el-button>
+                <el-input size="mini" placeholder="通过员工姓名搜索..." prefix-icon="el-icon-search"
+                          style="width: 300px;margin-right: 8px;"
+                          v-model="keyword"
+                          clearable @clear="initTable"
+                          @keydown.enter.native="initTable"></el-input>
+                <el-button size="mini" type="primary" icon="el-icon-search" @click="initTable">搜索</el-button>
                 <el-button size="mini" type="primary"><i class="fa fa-angle-double-down" aria-hidden="true"></i>高级搜索</el-button>
             </div>
             <div>
@@ -86,7 +89,7 @@
                 <el-table-column
                         prop="department.name"
                         label="所属部门"
-                        width="80">
+                        width="100">
                 </el-table-column>
                 <el-table-column
                         prop="position.name"
@@ -168,7 +171,8 @@
                 tableData: [],
                 total: null,
                 curPage:1,
-                size:10
+                size:10,
+                keyword:''
             }
         },
         mounted() {
@@ -176,7 +180,7 @@
         },
         methods: {
             initTable() {
-                this.getRequest("/emp/basic/?curPage="+this.curPage+"&size="+this.size).then(resp=>{
+                this.getRequest("/emp/basic/?curPage="+this.curPage+"&size="+this.size+"&keyword="+this.keyword).then(resp=>{
                     if(resp){
                         this.tableData = resp.data;
                         this.total = resp.total;
