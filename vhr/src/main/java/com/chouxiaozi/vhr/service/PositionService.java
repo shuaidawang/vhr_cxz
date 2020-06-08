@@ -16,8 +16,13 @@ public class PositionService {
     private PositionMapper positionMapper;
 
 
-    public List<Position> getAllPosition() {
-        return positionMapper.selectByExample(new PositionExample());
+    public List<Position> getAllPosition(Boolean enabled) {
+        PositionExample example = new PositionExample();
+        PositionExample.Criteria criteria = example.createCriteria();
+        if(null != enabled){
+            criteria.andEnabledEqualTo(enabled);
+        }
+        return positionMapper.selectByExample(example);
     }
 
     public RespBean addPosition(Position position) {

@@ -30,7 +30,7 @@ public class JobLevelController {
 
     @GetMapping("/")
     public List<JobLevel> getJobLevels() {
-        return jobLevelService.getJobLevels();
+        return jobLevelService.getJobLevels(null);
     }
 
     @PostMapping("/")

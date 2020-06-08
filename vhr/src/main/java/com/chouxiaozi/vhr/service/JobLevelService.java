@@ -3,6 +3,7 @@ package com.chouxiaozi.vhr.service;
 import com.chouxiaozi.vhr.denum.TitleLevelEnum;
 import com.chouxiaozi.vhr.mapper.JobLevelMapper;
 import com.chouxiaozi.vhr.model.JobLevel;
+import com.chouxiaozi.vhr.model.JobLevelExample;
 import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,13 @@ public class JobLevelService{
     @Autowired
     JobLevelMapper jobLevelMapper;
 
-    public List<JobLevel> getJobLevels() {
-        return jobLevelMapper.selectByExample(null);
+    public List<JobLevel> getJobLevels(Boolean enable) {
+        JobLevelExample example = new JobLevelExample();
+        JobLevelExample.Criteria criteria = example.createCriteria();
+        if(null != enable){
+            criteria.andEnabledEqualTo(enable);
+        }
+        return jobLevelMapper.selectByExample(example);
     }
 
     public List<String> getTitleLevels() {

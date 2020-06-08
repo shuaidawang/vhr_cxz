@@ -29,7 +29,7 @@ public class PositionController {
 
     @GetMapping("/")
     public List<Position> getAllPosition(){
-        return positionService.getAllPosition();
+        return positionService.getAllPosition(null);
     }
     @PostMapping("/")
     public RespBean addPosition(@RequestBody Position position){

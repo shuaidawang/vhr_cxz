@@ -628,4 +628,10 @@
         </where>
       </if>
     </select>
+    <select id="getMaxWorkID" resultType="java.lang.Integer">
+        SELECT
+            MAX( workID )
+        FROM
+	    employee
+    </select>
 </mapper>
