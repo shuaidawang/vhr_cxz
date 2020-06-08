@@ -40,7 +40,15 @@ public class EmployeeService {
         return employeeMapper.insertSelective(employee);
     }
 
-    public List<Politicsstatus> listPoliticsStatus(){
+    public int update(Employee employee) {
+        return employeeMapper.updateByPrimaryKeySelective(employee);
+    }
+
+    public int delete(Integer id) {
+        return employeeMapper.deleteByPrimaryKey(id);
+    }
+
+    public List<Politicsstatus> listPoliticsStatus() {
         return politicsstatusMapper.selectByExample(new PoliticsstatusExample());
     }
 
@@ -51,4 +59,5 @@ public class EmployeeService {
     public Integer getMaxWorkID() {
         return employeeMapper.getMaxWorkID();
     }
+
 }

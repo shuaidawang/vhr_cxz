@@ -142,7 +142,7 @@
                         label="操作"
                         width="200">
                     <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+                        <el-button @click="showEditDialog(scope.row)" type="text" size="small">编辑</el-button>
                         <el-button type="text" size="small">查看高级资料</el-button>
                         <el-button type="text" size="small">删除</el-button>
                     </template>
@@ -162,7 +162,7 @@
             </el-pagination>
         </div>
         <el-dialog
-                title="添加员工"
+                :title="title"
                 :visible.sync="dialogVisible"
                 width="80%">
             <el-row :gutter="20">
@@ -420,6 +420,7 @@
         name: "EmpBasic",
         data() {
             return {
+                title: '',
                 tableData: [],
                 total: null,
                 curPage: 1,
@@ -527,12 +528,25 @@
                 this.initTable();
             },
             showAddDialog() {
+                this.emptyEmp();
+                this.title = '添加员工';
                 this.dialogVisible = true;
+                this.initData();
+                this.getMaxWorkID();
+            },
+            showEditDialog(data) {
+                console.log(data)
+                this.title = '编辑员工';
+                this.emp = data;
+                this.dialogVisible = true;
+                this.initData();
+                this.departmentName = data.dept.name;
+            },
+            initData() {
                 this.initPoliticsStatus();
                 this.initNations();
                 this.initPositions();
                 this.initJobLevels();
-                this.getMaxWorkID();
                 this.getAllDeps();
             },
             //政治面貌
@@ -592,16 +606,30 @@
                 this.depPopVisible = !this.depPopVisible;
             },
             btnAdd() {
-                this.$refs['empForm'].validate(valid => {
-                    if(valid){
-                        this.postRequest("/employee/basic/", this.emp).then(resp => {
-                            if (resp) {
-                                this.dialogVisible = false;
-                                this.initTable();
-                            }
-                        })
-                    }
-                })
+                if(this.emp.id){//编辑
+                    this.$refs['empForm'].validate(valid => {
+                        if (valid) {
+                            this.putRequest("/employee/basic/", this.emp).then(resp => {
+                                if (resp) {
+                                    this.dialogVisible = false;
+                                    this.initTable();
+                                }
+                            })
+                        }
+                    })
+                }else{//添加
+                    this.$refs['empForm'].validate(valid => {
+                        if (valid) {
+                            this.postRequest("/employee/basic/", this.emp).then(resp => {
+                                if (resp) {
+                                    this.dialogVisible = false;
+                                    this.initTable();
+                                }
+                            })
+                        }
+                    })
+                }
+
             },
             emptyEmp() {
                 this.emp = {
@@ -624,7 +652,7 @@
                     specialty: "",
                     school: "",
                     beginDate: "",
-                    workID: "",
+                    workId: "",
                     contractTerm: 2,
                     conversionTime: "",
                     notworkDate: null,
@@ -632,7 +660,7 @@
                     endContract: "",
                     workAge: null
                 }
-                this.inputDepName = '';
+                this.departmentName = '';
             },
 
         }
