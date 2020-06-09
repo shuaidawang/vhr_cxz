@@ -22,13 +22,9 @@ public class Employee implements Serializable {
 
     private Integer nationId;
 
-    private String nationName;
-
     private String nativePlace;
 
     private Integer politicId;
-
-    private String politicName;
 
     private String email;
 
@@ -38,15 +34,9 @@ public class Employee implements Serializable {
 
     private Integer departmentId;
 
-    private String departmentName;
-
     private Integer jobLevelId;
 
-    private String jobLevelName;
-
     private Integer posId;
-
-    private String posName;
 
     private String engageForm;
 
@@ -304,46 +294,6 @@ public class Employee implements Serializable {
 
     public void setWorkAge(Integer workAge) {
         this.workAge = workAge;
-    }
-
-    public String getNationName() {
-        return nationName;
-    }
-
-    public void setNationName(String nationName) {
-        this.nationName = nationName;
-    }
-
-    public String getPoliticName() {
-        return politicName;
-    }
-
-    public void setPoliticName(String politicName) {
-        this.politicName = politicName;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-    public String getJobLevelName() {
-        return jobLevelName;
-    }
-
-    public void setJobLevelName(String jobLevelName) {
-        this.jobLevelName = jobLevelName;
-    }
-
-    public String getPosName() {
-        return posName;
-    }
-
-    public void setPosName(String posName) {
-        this.posName = posName;
     }
 
     public Nation getNation() {

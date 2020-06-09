@@ -7,6 +7,7 @@ import com.chouxiaozi.vhr.model.Employee;
 import com.chouxiaozi.vhr.model.Nation;
 import com.chouxiaozi.vhr.model.Politicsstatus;
 import com.chouxiaozi.vhr.model.PoliticsstatusExample;
+import com.chouxiaozi.vhr.util.DateUtil;
 import com.chouxiaozi.vhr.vo.RespPageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,10 +38,12 @@ public class EmployeeService {
     }
 
     public int add(Employee employee) {
+        employee.setContractTerm(DateUtil.getBetweenYears(employee.getBeginContract(),employee.getEndContract()));
         return employeeMapper.insertSelective(employee);
     }
 
     public int update(Employee employee) {
+        employee.setContractTerm(DateUtil.getBetweenYears(employee.getBeginContract(),employee.getEndContract()));
         return employeeMapper.updateByPrimaryKeySelective(employee);
     }
 
@@ -59,5 +62,4 @@ public class EmployeeService {
     public Integer getMaxWorkID() {
         return employeeMapper.getMaxWorkID();
     }
-
 }

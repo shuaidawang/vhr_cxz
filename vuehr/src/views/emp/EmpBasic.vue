@@ -144,7 +144,7 @@
                     <template slot-scope="scope">
                         <el-button @click="showEditDialog(scope.row)" type="text" size="small">编辑</el-button>
                         <el-button type="text" size="small">查看高级资料</el-button>
-                        <el-button type="text" size="small">删除</el-button>
+                        <el-button @click="delEmployee(scope.row)" type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -540,7 +540,7 @@
                 this.emp = data;
                 this.dialogVisible = true;
                 this.initData();
-                this.departmentName = data.dept.name;
+                this.departmentName = data.department.name;
             },
             initData() {
                 this.initPoliticsStatus();
@@ -630,6 +630,24 @@
                     })
                 }
 
+            },
+            delEmployee(data){
+                this.$confirm('此操作将永久删除用户【' + data.name + '】, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.deleteRequest("/employee/basic/"+data.id).then(resp => {
+                        if (resp) {
+                            this.initTable();
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
             },
             emptyEmp() {
                 this.emp = {
