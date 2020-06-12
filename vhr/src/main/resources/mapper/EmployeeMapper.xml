@@ -618,7 +618,9 @@
           </where>
       </if>
       order by e.workID
+      <if test="null != curPage and null != size">
       limit #{curPage},#{size}
+      </if>
   </select>
     <select id="getTotal" resultType="java.lang.Long">
       SELECT count(*) FROM employee e

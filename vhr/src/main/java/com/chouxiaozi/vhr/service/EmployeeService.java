@@ -25,13 +25,6 @@ public class EmployeeService {
 
     public RespPageBean listEmployeesByPage(Integer curPage, Integer size, String keyword) {
         RespPageBean bean = new RespPageBean();
-        if (null == curPage) {
-            curPage = 1;
-        }
-        if (null == size) {
-            size = 10;
-        }
-        curPage = (curPage - 1) * size;
         bean.setData(employeeMapper.listEmployeesByPage(curPage, size, keyword));
         bean.setTotal(employeeMapper.getTotal(keyword));
         return bean;

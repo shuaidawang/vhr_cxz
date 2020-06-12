@@ -13,7 +13,7 @@
             </div>
             <div>
                 <el-button size="mini" type="success" icon="el-icon-upload2">导入数据</el-button>
-                <el-button size="mini" type="success" icon="el-icon-download">导出数据</el-button>
+                <el-button size="mini" type="success" icon="el-icon-download" @click="exportData">导出数据</el-button>
                 <el-button size="mini" type="primary" icon="el-icon-plus" @click="showAddDialog">添加员工</el-button>
             </div>
         </div>
@@ -680,6 +680,9 @@
                 }
                 this.departmentName = '';
             },
+            exportData(){
+                window.open('/employee/basic/export', '_parent');
+            }
 
         }
     }
