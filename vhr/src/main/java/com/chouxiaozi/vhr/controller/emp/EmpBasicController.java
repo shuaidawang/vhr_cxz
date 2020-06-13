@@ -128,32 +128,22 @@ public class EmpBasicController {
     public ResponseEntity<byte[]> export(){
         RespPageBean respPageBean = employeeService.listEmployeesByPage(null, null, null);
         HttpHeaders headers = new HttpHeaders();
-        byte[] baos = null;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         if(null != respPageBean.getTotal() && respPageBean.getTotal() > 0){
             List<Employee> list = (List<Employee>)respPageBean.getData();
             // 写法1
             String name =  "员工信息表" + System.currentTimeMillis();
-            String fileName = "E://"+name+ ".xlsx";
             // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
             // 如果这里想使用03 则 传入excelType参数即可
-            EasyExcel.write(fileName, Employee.class).sheet("员工信息表").doWrite(list);
+            EasyExcel.write(outputStream, Employee.class).sheet("员工信息表").doWrite(list);
             try {
                 headers.setContentDispositionFormData("attachment", new String((name+".xlsx").getBytes("UTF-8"), "ISO-8859-1"));
                 headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            try {
-                InputStream fileInputStream = new FileInputStream(fileName);
-                baos = new byte[fileInputStream.available()];
-                fileInputStream.read(baos);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
-        return new ResponseEntity<byte[]>(baos, headers, HttpStatus.CREATED);
+        return new ResponseEntity<byte[]>(outputStream.toByteArray(), headers, HttpStatus.CREATED);
     }
 }
