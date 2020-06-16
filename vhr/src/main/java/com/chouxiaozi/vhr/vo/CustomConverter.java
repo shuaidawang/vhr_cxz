@@ -14,7 +14,7 @@ import com.chouxiaozi.vhr.model.Position;
 public class CustomConverter implements Converter {
     @Override
     public Class supportJavaTypeKey() {
-        return String.class;
+        return Integer.class;
     }
 
     @Override
@@ -24,6 +24,28 @@ public class CustomConverter implements Converter {
 
     @Override
     public Object convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+        String fileName = excelContentProperty.getField().getName();
+        if(fileName.equals("nation")){
+            Nation nation = new Nation();
+            nation.setName(cellData.getStringValue());
+            return nation;
+        }else if(fileName.equals("politicsstatus")){
+            Politicsstatus politicsstatus = new Politicsstatus();
+            politicsstatus.setName(cellData.getStringValue());
+            return politicsstatus;
+        }else if(fileName.equals("department")){
+            Department department = new Department();
+            department.setName(cellData.getStringValue());
+            return department;
+        }else if(fileName.equals("jobLevel")){
+            JobLevel jobLevel = new JobLevel();
+            jobLevel.setName(cellData.getStringValue());
+            return jobLevel;
+        }else if(fileName.equals("position")){
+            Position position = new Position();
+            position.setName(cellData.getStringValue());
+            return position;
+        }
         return cellData.getStringValue();
     }
 

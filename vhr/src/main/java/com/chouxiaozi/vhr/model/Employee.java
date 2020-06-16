@@ -4,10 +4,10 @@ import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.alibaba.excel.annotation.write.style.HeadStyle;
-import com.chouxiaozi.vhr.denum.IndexedColors;
 import com.chouxiaozi.vhr.vo.CustomConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.poi.ss.usermodel.FillPatternType;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,35 +17,35 @@ public class Employee implements Serializable {
     @ExcelIgnore
     private Integer id;
 
-    @ExcelProperty("姓名")
+    @ExcelProperty(value = "姓名", index = 0)
     private String name;
 
-    @ExcelProperty("性别")
+    @ExcelProperty(value = "性别", index = 1)
     private String gender;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @DateTimeFormat("yyyy-MM-dd")
-    @ExcelProperty(value = "生日")
+    @ExcelProperty(value = "生日", index = 3)
     private Date birthday;
-    @ExcelProperty("身份证号")
+    @ExcelProperty(value = "身份证号", index = 4)
     private String idCard;
-    @ExcelProperty("婚姻状况")
+    @ExcelProperty(value = "婚姻状况", index = 5)
     private String wedlock;
     @ExcelIgnore
     private Integer nationId;
 
-    @ExcelProperty("籍贯")
+    @ExcelProperty(value = "籍贯", index = 7)
     private String nativePlace;
     @ExcelIgnore
     private Integer politicId;
 
-    @ExcelProperty("邮箱")
+    @ExcelProperty(value = "邮箱", index = 9)
     private String email;
 
-    @ExcelProperty("电话号码")
+    @ExcelProperty(value = "电话号码", index = 10)
     private String phone;
 
-    @ExcelProperty("联系地址")
+    @ExcelProperty(value = "联系地址", index = 11)
     private String address;
     @ExcelIgnore
     private Integer departmentId;
@@ -54,68 +54,69 @@ public class Employee implements Serializable {
     @ExcelIgnore
     private Integer posId;
 
-    @ExcelProperty("聘用形式")
+    @ExcelProperty(value = "聘用形式", index = 15)
     private String engageForm;
 
-    @ExcelProperty("最高学历")
+    @ExcelProperty(value = "最高学历", index = 16)
     private String tiptopDegree;
 
-    @ExcelProperty("所属专业")
+    @ExcelProperty(value = "所属专业", index = 17)
     private String specialty;
 
-    @ExcelProperty("毕业院校")
+    @ExcelProperty(value = "毕业院校", index = 18)
     private String school;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @DateTimeFormat("yyyy-MM-dd")
-    @ExcelProperty("入职日期")
+    @ExcelProperty(value = "入职日期", index = 19)
     private Date beginDate;
 
-    @ExcelProperty("在职状态")
+    @ExcelProperty(value = "在职状态", index = 21)
     private String workState;
 
-    @ExcelProperty("工号")
+    @ExcelProperty(value = "工号", index = 2)
     private String workId;
 
-    @ExcelProperty("合同期限")
+    @ExcelProperty(value = "合同期限", index = 25)
     private Double contractTerm;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @DateTimeFormat("yyyy-MM-dd")
-    @ExcelProperty("转正日期")
+    @ExcelProperty(value = "转正日期", index = 22)
     private Date conversionTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @DateTimeFormat("yyyy-MM-dd")
-    @ExcelProperty("离职日期")
+    @ExcelProperty(value = "离职日期", index = 20)
     private Date notworkDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @DateTimeFormat("yyyy-MM-dd")
-    @ExcelProperty("合同起始日期")
+    @ExcelProperty(value = "合同起始日期", index = 23)
     private Date beginContract;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @DateTimeFormat("yyyy-MM-dd")
-    @ExcelProperty("合同终止日期")
+    @ExcelProperty(value = "合同终止日期", index = 24)
     private Date endContract;
 
-    @ExcelProperty("工龄")
+    @ExcelIgnore
+    @ExcelProperty(value = "工龄", index = 26)
     private Integer workAge;
 
-    @ExcelProperty(value = "民族",converter= CustomConverter.class)
+    @ExcelProperty(value = "民族", converter = CustomConverter.class, index = 6)
     private Nation nation;
 
-    @ExcelProperty(value = "面貌",converter= CustomConverter.class)
+    @ExcelProperty(value = "面貌", converter = CustomConverter.class, index = 8)
     private Politicsstatus politicsstatus;
 
-    @ExcelProperty(value = "部门",converter= CustomConverter.class)
+    @ExcelProperty(value = "部门", converter = CustomConverter.class, index = 12)
     private Department department;
 
-    @ExcelProperty(value = "职级",converter= CustomConverter.class)
+    @ExcelProperty(value = "职级", converter = CustomConverter.class, index = 13)
     private JobLevel jobLevel;
 
-    @ExcelProperty(value = "职位",converter= CustomConverter.class)
+    @ExcelProperty(value = "职位", converter = CustomConverter.class, index = 14)
     private Position position;
 
     private static final long serialVersionUID = 1L;

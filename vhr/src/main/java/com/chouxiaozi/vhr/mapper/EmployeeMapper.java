@@ -33,4 +33,6 @@ public interface EmployeeMapper {
     Long getTotal(String keyword);
 
     Integer getMaxWorkID();
+
+    int batchInsert(List<Employee> list);
 }

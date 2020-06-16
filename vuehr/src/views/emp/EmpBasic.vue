@@ -12,7 +12,17 @@
                 </el-button>
             </div>
             <div>
-                <el-button size="mini" type="success" icon="el-icon-upload2">导入数据</el-button>
+                <el-upload style="display: inline-flex;margin-right: 8px;"
+                           :show-file-list="false"
+                           :on-success="importSuccess"
+                           :on-error="importError"
+                           :before-upload="beforeUpload"
+                           :disabled="importDataDisabled"
+                           action="/employee/basic/import">
+                    <el-button size="mini" type="success" :icon="importDataBtnIcon" :disabled="importDataDisabled">
+                        {{importLabel}}
+                    </el-button>
+                </el-upload>
                 <el-button size="mini" type="success" icon="el-icon-download" @click="exportData">导出数据</el-button>
                 <el-button size="mini" type="primary" icon="el-icon-plus" @click="showAddDialog">添加员工</el-button>
             </div>
@@ -420,6 +430,9 @@
         name: "EmpBasic",
         data() {
             return {
+                importLabel: '导入数据',
+                importDataBtnIcon: 'el-icon-upload2',
+                importDataDisabled: false,
                 title: '',
                 tableData: [],
                 total: null,
@@ -606,7 +619,7 @@
                 this.depPopVisible = !this.depPopVisible;
             },
             btnAdd() {
-                if(this.emp.id){//编辑
+                if (this.emp.id) {//编辑
                     this.$refs['empForm'].validate(valid => {
                         if (valid) {
                             this.putRequest("/employee/basic/", this.emp).then(resp => {
@@ -617,7 +630,7 @@
                             })
                         }
                     })
-                }else{//添加
+                } else {//添加
                     this.$refs['empForm'].validate(valid => {
                         if (valid) {
                             this.postRequest("/employee/basic/", this.emp).then(resp => {
@@ -631,13 +644,13 @@
                 }
 
             },
-            delEmployee(data){
+            delEmployee(data) {
                 this.$confirm('此操作将永久删除用户【' + data.name + '】, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.deleteRequest("/employee/basic/"+data.id).then(resp => {
+                    this.deleteRequest("/employee/basic/" + data.id).then(resp => {
                         if (resp) {
                             this.initTable();
                         }
@@ -680,8 +693,25 @@
                 }
                 this.departmentName = '';
             },
-            exportData(){
+            exportData() {
                 window.open('/employee/basic/export', '_parent');
+            },
+            beforeUpload() {
+                this.importLabel = '正在导入';
+                this.importDataBtnIcon = 'el-icon-loading';
+                this.importDataDisabled = true;
+            },
+            importSuccess(response, file, fileList) {
+                this.importLabel = "导入数据";
+                this.importDataBtnIcon = 'el-icon-upload2';
+                this.importDataDisabled = false;
+                this.$message.success("上传成功!");
+            },
+            importError(err, file, fileList) {
+                this.importLabel = "导入数据";
+                this.importDataBtnIcon = 'el-icon-upload2';
+                this.importDataDisabled = false;
+                this.$message.error(err);
             }
 
         }
