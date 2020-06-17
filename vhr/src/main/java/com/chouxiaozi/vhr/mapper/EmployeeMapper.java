@@ -2,6 +2,8 @@ package com.chouxiaozi.vhr.mapper;
 
 import com.chouxiaozi.vhr.model.Employee;
 import com.chouxiaozi.vhr.model.EmployeeExample;
+
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,9 +30,9 @@ public interface EmployeeMapper {
 
     int updateByPrimaryKey(Employee record);
 
-    List<Employee> listEmployeesByPage(@Param("curPage") Integer curPage, @Param("size") Integer size, @Param("keyword") String keyword);
+    List<Employee> listEmployeesByPage(@Param("curPage") Integer curPage, @Param("size") Integer size, @Param("emp") Employee employee,@Param("beginDateScope") Date[] beginDateScope);
 
-    Long getTotal(String keyword);
+    Long getTotal(@Param("emp") Employee employee,@Param("beginDateScope") Date[] beginDateScope);
 
     Integer getMaxWorkID();
 

@@ -22,6 +22,7 @@ import com.chouxiaozi.vhr.vo.RespPageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -39,10 +40,10 @@ public class EmployeeService {
     @Autowired
     JobLevelMapper jobLevelMapper;
 
-    public RespPageBean listEmployeesByPage(Integer curPage, Integer size, String keyword) {
+    public RespPageBean listEmployeesByPage(Integer curPage, Integer size, Employee employee, Date[] beginDateScope) {
         RespPageBean bean = new RespPageBean();
-        bean.setData(employeeMapper.listEmployeesByPage(curPage, size, keyword));
-        bean.setTotal(employeeMapper.getTotal(keyword));
+        bean.setData(employeeMapper.listEmployeesByPage(curPage, size, employee, beginDateScope));
+        bean.setTotal(employeeMapper.getTotal(employee,beginDateScope));
         return bean;
     }
 

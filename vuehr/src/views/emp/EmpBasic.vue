@@ -6,9 +6,10 @@
                     <el-input size="mini" placeholder="通过员工姓名搜索..." prefix-icon="el-icon-search"
                               style="width: 300px;margin-right: 8px;"
                               v-model="keyword"
+                              :disabled="showAdvanceSearchView"
                               clearable @clear="initTable"
                               @keydown.enter.native="initTable"></el-input>
-                    <el-button size="mini" type="primary" icon="el-icon-search" @click="initTable">搜索</el-button>
+                    <el-button size="mini" type="primary" icon="el-icon-search" @click="initTable" :disabled="showAdvanceSearchView">搜索</el-button>
                     <el-button size="mini" type="primary" @click="showAdvanceSearchView = !showAdvanceSearchView">
                         <i :class="showAdvanceSearchView?'fa fa-angle-double-up':'fa fa-angle-double-down'"
                            aria-hidden="true"></i>
@@ -122,7 +123,7 @@
                         </el-col>
                         <el-col :span="5" :offset="4">
                             <el-button size="mini">取消</el-button>
-                            <el-button size="mini" icon="el-icon-search" type="primary" @click="initEmps('advanced')">搜索</el-button>
+                            <el-button size="mini" icon="el-icon-search" type="primary" @click="initTable('advanced')">搜索</el-button>
                         </el-col>
                     </el-row>
                 </div>
@@ -642,8 +643,34 @@
                 this.searchValue.departmentId = data.id;
                 this.popVisible2 = !this.popVisible2
             },
-            initTable() {
-                this.getRequest("/employee/basic/?curPage=" + this.curPage + "&size=" + this.size + "&keyword=" + this.keyword).then(resp => {
+            initTable(type) {
+                var url = "/employee/basic/?curPage=" + this.curPage + "&size=" + this.size;
+                if(type && type=='advanced'){//高级搜索
+                    if (this.searchValue.politicId) {
+                        url += '&politicId=' + this.searchValue.politicId;
+                    }
+                    if (this.searchValue.nationId) {
+                        url += '&nationId=' + this.searchValue.nationId;
+                    }
+                    if (this.searchValue.jobLevelId) {
+                        url += '&jobLevelId=' + this.searchValue.jobLevelId;
+                    }
+                    if (this.searchValue.posId) {
+                        url += '&posId=' + this.searchValue.posId;
+                    }
+                    if (this.searchValue.engageForm) {
+                        url += '&engageForm=' + this.searchValue.engageForm;
+                    }
+                    if (this.searchValue.departmentId) {
+                        url += '&departmentId=' + this.searchValue.departmentId;
+                    }
+                    if (this.searchValue.beginDateScope) {
+                        url += '&beginDateScope=' + this.searchValue.beginDateScope;
+                    }
+                }else{//普通搜索
+                    url+="&name=" + this.keyword;
+                }
+                this.getRequest(url).then(resp => {
                     if (resp) {
                         this.tableData = resp.data;
                         this.total = resp.total;

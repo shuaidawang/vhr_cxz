@@ -36,11 +36,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.List;
 
 
@@ -62,7 +60,7 @@ public class EmpBasicController {
 
     @GetMapping("/")
     public RespPageBean listEmployeesByPage(@RequestParam(defaultValue = "1") Integer curPage
-            , @RequestParam(defaultValue = "10") Integer size, String keyword) {
+            , @RequestParam(defaultValue = "10") Integer size, Employee employee, Date[] beginDateScope) {
         if (null == curPage) {
             curPage = 1;
         }
@@ -70,28 +68,28 @@ public class EmpBasicController {
             size = 10;
         }
         curPage = (curPage - 1) * size;
-        return employeeService.listEmployeesByPage(curPage, size, keyword);
+        return employeeService.listEmployeesByPage(curPage, size, employee, beginDateScope);
     }
 
     @PostMapping("/")
-    public RespBean add(@RequestBody Employee employee){
-        if(1 == employeeService.add(employee)){
+    public RespBean add(@RequestBody Employee employee) {
+        if (1 == employeeService.add(employee)) {
             return RespBean.ok("添加成功!");
         }
         return RespBean.error("添加失败!");
     }
 
     @PutMapping("/")
-    public RespBean update(@RequestBody Employee employee){
-        if(1 == employeeService.update(employee)){
+    public RespBean update(@RequestBody Employee employee) {
+        if (1 == employeeService.update(employee)) {
             return RespBean.ok("更新成功!");
         }
         return RespBean.error("更新失败!");
     }
 
     @DeleteMapping("/{id}")
-    public RespBean update(@PathVariable("id") Integer id){
-        if(1 == employeeService.delete(id)){
+    public RespBean update(@PathVariable("id") Integer id) {
+        if (1 == employeeService.delete(id)) {
             return RespBean.ok("删除成功!");
         }
         return RespBean.error("删除失败!");
@@ -99,48 +97,53 @@ public class EmpBasicController {
 
     //政治面貌
     @GetMapping("/listPoliticsStatus")
-    public List<Politicsstatus> listPoliticsStatus(){
+    public List<Politicsstatus> listPoliticsStatus() {
         return employeeService.listPoliticsStatus();
     }
+
     //民族
     @GetMapping("/listNations")
-    public List<Nation> listNations(){
+    public List<Nation> listNations() {
         return employeeService.listNations();
     }
+
     //职位
     @GetMapping("/listPositions")
-    public List<Position> listPositions(){
+    public List<Position> listPositions() {
         return positionService.getAllPosition(true);
     }
+
     //职称
     @GetMapping("/listJobLevels")
-    public List<JobLevel> listJobLevels(){
+    public List<JobLevel> listJobLevels() {
         return jobLevelService.getJobLevels(true);
     }
+
     //工号
     @GetMapping("/getMaxWorkID")
-    public String getMaxWorkID(){
-        return String.format("%08d",employeeService.getMaxWorkID()+1);
+    public String getMaxWorkID() {
+        return String.format("%08d", employeeService.getMaxWorkID() + 1);
     }
+
     @GetMapping("/listAllDeps")
-    public List<Department> listAllDeps(){
+    public List<Department> listAllDeps() {
         return deptService.getDeptTree();
     }
 
     @GetMapping("/export")
-    public ResponseEntity<byte[]> export(){
-        RespPageBean respPageBean = employeeService.listEmployeesByPage(null, null, null);
+    public ResponseEntity<byte[]> export() {
+        RespPageBean respPageBean = employeeService.listEmployeesByPage(null, null, null,null);
         HttpHeaders headers = new HttpHeaders();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        if(null != respPageBean.getTotal() && respPageBean.getTotal() > 0){
-            List<Employee> list = (List<Employee>)respPageBean.getData();
+        if (null != respPageBean.getTotal() && respPageBean.getTotal() > 0) {
+            List<Employee> list = (List<Employee>) respPageBean.getData();
             // 写法1
-            String name =  "员工信息表" + System.currentTimeMillis();
+            String name = "员工信息表" + System.currentTimeMillis();
             // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
             // 如果这里想使用03 则 传入excelType参数即可
             EasyExcel.write(outputStream, Employee.class).sheet("员工信息表").doWrite(list);
             try {
-                headers.setContentDispositionFormData("attachment", new String((name+".xlsx").getBytes("UTF-8"), "ISO-8859-1"));
+                headers.setContentDispositionFormData("attachment", new String((name + ".xlsx").getBytes("UTF-8"), "ISO-8859-1"));
                 headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
