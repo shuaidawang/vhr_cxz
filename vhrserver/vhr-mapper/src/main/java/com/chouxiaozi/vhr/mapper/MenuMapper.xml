@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chouxiaozi.vhr.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.chouxiaozi.vhr.model.Menu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="component" property="component" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="iconCls" property="iconCls" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentId" jdbcType="INTEGER" />
+    <result column="enabled" property="enabled" jdbcType="BIT" />
+    <association property="meta" javaType="com.chouxiaozi.vhr.model.Meta">
+      <result column="keepAlive" property="keepAlive" jdbcType="BIT" />
+      <result column="requireAuth" property="requireAuth" jdbcType="BIT" />
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chouxiaozi.vhr.model.MenuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chouxiaozi.vhr.model.MenuExample" >
+    delete from menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chouxiaozi.vhr.model.Menu" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    insert into menu (url, path, component,
+      name, iconCls, keepAlive,
+      requireAuth, parentId, enabled
+      )
+    values (#{url,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{iconCls,jdbcType=VARCHAR}, #{keepAlive,jdbcType=BIT},
+      #{requireAuth,jdbcType=BIT}, #{parentId,jdbcType=INTEGER}, #{enabled,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chouxiaozi.vhr.model.Menu" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="component != null" >
+        component,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="iconCls != null" >
+        iconCls,
+      </if>
+      <if test="keepAlive != null" >
+        keepAlive,
+      </if>
+      <if test="requireAuth != null" >
+        requireAuth,
+      </if>
+      <if test="parentId != null" >
+        parentId,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null" >
+        #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="iconCls != null" >
+        #{iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="keepAlive != null" >
+        #{keepAlive,jdbcType=BIT},
+      </if>
+      <if test="requireAuth != null" >
+        #{requireAuth,jdbcType=BIT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chouxiaozi.vhr.model.MenuExample" resultType="java.lang.Integer" >
+    select count(*) from menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update menu
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path != null" >
+        path = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.component != null" >
+        component = #{record.component,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconCls != null" >
+        iconCls = #{record.iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keepAlive != null" >
+        keepAlive = #{record.keepAlive,jdbcType=BIT},
+      </if>
+      <if test="record.requireAuth != null" >
+        requireAuth = #{record.requireAuth,jdbcType=BIT},
+      </if>
+      <if test="record.parentId != null" >
+        parentId = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.enabled != null" >
+        enabled = #{record.enabled,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update menu
+    set id = #{record.id,jdbcType=INTEGER},
+      url = #{record.url,jdbcType=VARCHAR},
+      path = #{record.path,jdbcType=VARCHAR},
+      component = #{record.component,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      iconCls = #{record.iconCls,jdbcType=VARCHAR},
+      keepAlive = #{record.keepAlive,jdbcType=BIT},
+      requireAuth = #{record.requireAuth,jdbcType=BIT},
+      parentId = #{record.parentId,jdbcType=INTEGER},
+      enabled = #{record.enabled,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chouxiaozi.vhr.model.Menu" >
+    update menu
+    <set >
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null" >
+        component = #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="iconCls != null" >
+        iconCls = #{iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="keepAlive != null" >
+        keepAlive = #{keepAlive,jdbcType=BIT},
+      </if>
+      <if test="requireAuth != null" >
+        requireAuth = #{requireAuth,jdbcType=BIT},
+      </if>
+      <if test="parentId != null" >
+        parentId = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chouxiaozi.vhr.model.Menu" >
+    update menu
+    set url = #{url,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      component = #{component,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      iconCls = #{iconCls,jdbcType=VARCHAR},
+      keepAlive = #{keepAlive,jdbcType=BIT},
+      requireAuth = #{requireAuth,jdbcType=BIT},
+      parentId = #{parentId,jdbcType=INTEGER},
+      enabled = #{enabled,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="menus" type="com.chouxiaozi.vhr.model.Menu" extends="BaseResultMap">
+     <collection property="children" ofType="com.chouxiaozi.vhr.model.Menu">
+       <id column="id2" property="id" jdbcType="INTEGER" />
+       <result column="url2" property="url" jdbcType="VARCHAR" />
+       <result column="path2" property="path" jdbcType="VARCHAR" />
+       <result column="component2" property="component" jdbcType="VARCHAR" />
+       <result column="name2" property="name" jdbcType="VARCHAR" />
+       <result column="iconCls2" property="iconCls" jdbcType="VARCHAR" />
+       <result column="parentId2" property="parentId" jdbcType="INTEGER" />
+       <result column="enabled2" property="enabled" jdbcType="BIT" />
+       <association property="meta" javaType="com.chouxiaozi.vhr.model.Meta">
+         <result column="keepAlive2" property="keepAlive" jdbcType="BIT" />
+         <result column="requireAuth2" property="requireAuth" jdbcType="BIT" />
+       </association>
+     </collection>
+  </resultMap>
+  <!--自定义查询-->
+  <select id="getMenuByHrId" resultMap="menus">
+        SELECT DISTINCT
+        menu.*,
+        m2.id AS id2,
+        m2.path AS path2,
+        m2.component AS component2,
+        m2.NAME AS name2,
+        m2.iconCls AS iconCls2,
+        m2.keepAlive AS keepAlive2,
+        m2.requireAuth AS requireAuth2,
+        m2.parentId AS parentId2,
+        m2.enabled AS enabled2
+    FROM
+        hr_role hrr
+        LEFT JOIN menu_role mr ON hrr.rid = mr.rid
+        LEFT JOIN menu m2 ON mr.mid = m2.id
+        LEFT JOIN menu menu ON m2.parentId = menu.id
+    WHERE
+        hrr.hrid = #{hrId}
+        AND m2.enabled = 1
+  </select>
+  <resultMap id="menuRoles" type="com.chouxiaozi.vhr.model.Menu" extends="BaseResultMap">
+    <collection property="roles" ofType="com.chouxiaozi.vhr.model.Role">
+      <id column="rId" property="id" jdbcType="INTEGER" />
+      <result column="rName" property="name" jdbcType="VARCHAR" />
+      <result column="rNameZh" property="nameZh" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <select id="getMenuRole" resultMap="menuRoles">
+        SELECT
+        menu.*,role.id as rId,role.name as rName, role.nameZh as rNameZh
+    FROM
+        menu
+        LEFT JOIN menu_role mr ON mr.mid = menu.id
+        LEFT JOIN role ON role.id = mr.rid
+  </select>
+  <select id="getByParentId" resultMap="BaseResultMap">
+    select id,name from menu where enabled = 1
+    and
+    <choose>
+      <when test="null == parentId">
+        parentId is null
+      </when>
+      <otherwise>
+        parentId = #{parentId}
+      </otherwise>
+    </choose>
+  </select>
+  <select id="listMenusByRoleId" resultType="java.lang.Integer">
+      SELECT
+      mid
+  FROM
+      menu_role
+  WHERE  rid = #{roleId}
+  </select>
+</mapper>

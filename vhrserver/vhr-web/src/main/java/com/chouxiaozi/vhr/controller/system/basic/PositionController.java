@@ -1,8 +1,8 @@
 package com.chouxiaozi.vhr.controller.system.basic;
 
-import com.chouxiaozi.model.Position;
-import com.chouxiaozi.service.PositionService;
-import com.chouxiaozi.vo.RespBean;
+import com.chouxiaozi.vhr.model.Position;
+import com.chouxiaozi.vhr.service.PositionService;
+import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

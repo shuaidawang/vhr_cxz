@@ -1,8 +1,8 @@
 package com.chouxiaozi.vhr.config;
 
-import com.chouxiaozi.model.Hr;
-import com.chouxiaozi.service.HrService;
-import com.chouxiaozi.vo.RespBean;
+import com.chouxiaozi.vhr.model.Hr;
+import com.chouxiaozi.vhr.service.HrService;
+import com.chouxiaozi.vhr.vo.RespBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

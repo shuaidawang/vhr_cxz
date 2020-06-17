@@ -1,10 +1,10 @@
 package com.chouxiaozi.vhr.controller.system.basic;
 
-import com.chouxiaozi.model.Menu;
-import com.chouxiaozi.model.Role;
-import com.chouxiaozi.service.MenuService;
-import com.chouxiaozi.service.RoleService;
-import com.chouxiaozi.vo.RespBean;
+import com.chouxiaozi.vhr.model.Menu;
+import com.chouxiaozi.vhr.model.Role;
+import com.chouxiaozi.vhr.service.MenuService;
+import com.chouxiaozi.vhr.service.RoleService;
+import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.DeleteMapping;

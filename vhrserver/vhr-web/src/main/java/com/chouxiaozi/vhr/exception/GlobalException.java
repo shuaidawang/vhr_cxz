@@ -1,6 +1,6 @@
 package com.chouxiaozi.vhr.exception;
 
-import com.chouxiaozi.vo.RespBean;
+import com.chouxiaozi.vhr.vo.RespBean;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
