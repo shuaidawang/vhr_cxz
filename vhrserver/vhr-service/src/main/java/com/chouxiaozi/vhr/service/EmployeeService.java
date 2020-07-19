@@ -11,6 +11,7 @@ import com.chouxiaozi.vhr.model.DepartmentExample;
 import com.chouxiaozi.vhr.model.Employee;
 import com.chouxiaozi.vhr.model.JobLevel;
 import com.chouxiaozi.vhr.model.JobLevelExample;
+import com.chouxiaozi.vhr.model.MailConstants;
 import com.chouxiaozi.vhr.model.Nation;
 import com.chouxiaozi.vhr.model.NationExample;
 import com.chouxiaozi.vhr.model.Politicsstatus;
@@ -19,6 +20,7 @@ import com.chouxiaozi.vhr.model.Position;
 import com.chouxiaozi.vhr.model.PositionExample;
 import com.chouxiaozi.vhr.util.DateUtil;
 import com.chouxiaozi.vhr.vo.RespPageBean;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +42,9 @@ public class EmployeeService {
     @Autowired
     JobLevelMapper jobLevelMapper;
 
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
     public RespPageBean listEmployeesByPage(Integer curPage, Integer size, Employee employee, Date[] beginDateScope) {
         RespPageBean bean = new RespPageBean();
         bean.setData(employeeMapper.listEmployeesByPage(curPage, size, employee, beginDateScope));
@@ -49,7 +54,22 @@ public class EmployeeService {
 
     public int add(Employee employee) {
         employee.setContractTerm(DateUtil.getBetweenYears(employee.getBeginContract(),employee.getEndContract()));
-        return employeeMapper.insertSelective(employee);
+        int result = employeeMapper.insertSelective(employee);
+        if(result == 1){
+            Employee emp = employeeMapper.getEmployeeById(employee.getId());
+            //生成消息的唯一id
+            /*String msgId = UUID.randomUUID().toString();
+            MailSendLog mailSendLog = new MailSendLog();
+            mailSendLog.setMsgId(msgId);
+            mailSendLog.setCreateTime(new Date());
+            mailSendLog.setExchange(MailConstants.MAIL_EXCHANGE_NAME);
+            mailSendLog.setRouteKey(MailConstants.MAIL_ROUTING_KEY_NAME);
+            mailSendLog.setEmpId(emp.getId());
+            mailSendLog.setTryTime(new Date(System.currentTimeMillis() + 1000 * 60 * MailConstants.MSG_TIMEOUT));*/
+            //mailSendLogService.insert(mailSendLog);
+            rabbitTemplate.convertAndSend(MailConstants.MAIL_EXCHANGE_NAME, MailConstants.MAIL_ROUTING_KEY_NAME, emp);
+        }
+        return result;
     }
 
     public int update(Employee employee) {

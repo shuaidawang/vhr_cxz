@@ -710,4 +710,10 @@
             )
         </foreach>
     </insert>
+    <select id="getEmployeeById" resultMap="listMap">
+        select e.*,p.`id` as politicId,p.`name` as politicName,n.`id` as nationId,n.`name` as nationName,d.`id` as departmentId,d.`name` as
+        departmentName,j.`id` as jobLevelId,j.`name` as jobLevelName,pos.`id` as posId,pos.`name` as posName from employee e,nation
+        n,politicsstatus p,department d,joblevel j,position pos where e.`nationId`=n.`id` and e.`politicId`=p.`id` and
+        e.`departmentId`=d.`id` and e.`jobLevelId`=j.`id` and e.`posId`=pos.`id` and e.`id`=#{id}
+    </select>
 </mapper>

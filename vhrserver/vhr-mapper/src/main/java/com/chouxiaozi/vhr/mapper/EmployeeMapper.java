@@ -38,4 +38,6 @@ public interface EmployeeMapper {
     Integer getMaxWorkID();
 
     int batchInsert(List<Employee> list);
+
+    Employee getEmployeeById(Integer id);
 }
