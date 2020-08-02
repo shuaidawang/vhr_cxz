@@ -4,6 +4,7 @@ import com.chouxiaozi.vhr.mapper.HrMapper;
 import com.chouxiaozi.vhr.model.Hr;
 import com.chouxiaozi.vhr.model.Role;
 import com.chouxiaozi.vhr.util.HrUtil;
+import com.chouxiaozi.vhr.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -44,5 +45,9 @@ public class HrService implements UserDetailsService {
     @Transactional
     public int deleteHr(Integer hrId) {
         return hrMapper.deleteByPrimaryKey(hrId);
+    }
+
+    public List<Hr> getOtherHrs() {
+        return hrMapper.getOtherHrs(HrUtil.getCurrentHr().getId());
     }
 }

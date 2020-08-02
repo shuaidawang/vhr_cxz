@@ -6,7 +6,7 @@
   				<span>{{entry.date | time}}</span>
   			</p>
   			<div class="main" :class="{self:entry.self}">
-  				<img class="avatar" :src="entry.self ? img : item.user.img" alt="">
+  				<img class="avatar" :src="entry.self ? user.userface : item.userface" alt="">
   				<p class="text">{{entry.content}}</p>
   			</div>
   		</li>
@@ -21,7 +21,7 @@ export default {
   name: 'message',
   data () {
     return {
-      img: 'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1091405991,859863778&fm=26&gp=0.jpg'
+      user: JSON.parse(window.sessionStorage.getItem("user"))
     }
   },
   computed:mapState([

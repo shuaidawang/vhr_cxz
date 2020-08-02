@@ -331,4 +331,7 @@
     </if>
     ORDER BY hr.id, rid
   </select>
+  <select id="getOtherHrs" resultMap="BaseResultMap">
+    select * from hr where id != #{id}
+  </select>
 </mapper>

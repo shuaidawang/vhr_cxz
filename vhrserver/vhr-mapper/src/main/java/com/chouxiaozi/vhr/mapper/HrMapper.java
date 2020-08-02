@@ -35,4 +35,6 @@ public interface HrMapper {
     List<Role> getRoles(Integer hrId);
 
     List<Hr> listHrs(@Param("hrId") Integer hrId,@Param("keyword") String keyword);
+
+    List<Hr> getOtherHrs(Integer id);
 }
