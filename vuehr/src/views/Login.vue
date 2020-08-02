@@ -44,6 +44,8 @@
                                 //获取重定向地址，存在则跳转该地址，否则/home
                                 let path = this.$route.query.redirect;
                                 this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
+                                //初始化websocket
+                                this.$store.dispatch('connect');
                             }
                         })
                     } else {
